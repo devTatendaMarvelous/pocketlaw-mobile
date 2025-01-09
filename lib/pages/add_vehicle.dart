@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:pocket_law/services/vehicle_service.dart';
 import 'package:pocket_law/widgets/custom_buttom.dart';
 
 import '../widgets/custom_textformfield.dart';
+import 'confirmed_payment.dart';
 
 
 class AddVehiclePage extends StatelessWidget {
@@ -12,6 +14,8 @@ class AddVehiclePage extends StatelessWidget {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   AddVehiclePage({super.key});
+
+  final VehicleService _vehicleService = VehicleService();
 
   @override
   Widget build(BuildContext context) {
@@ -83,18 +87,58 @@ class AddVehiclePage extends StatelessWidget {
                         showDialog(
                           context: context,
                           builder: (context) => AlertDialog(
-                            title: const Text('Vehicle Added'),
-                            content: const Text('The vehicle details have been saved successfully!'),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20), // Rounded corners
+                            ),
+                            title: const Text(
+                              'Confirm Vehicle Details',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            content: SizedBox(
+                              width: MediaQuery.sizeOf(context).width*0.9,
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  buildDetailRow('Make:', makeController.text),
+                                  const SizedBox(height: 8),
+                                  buildDetailRow('Model:', modelController.text),
+                                  const SizedBox(height: 8),
+                                  buildDetailRow('Color:', colorController.text),
+                                  const SizedBox(height: 8),
+                                  buildDetailRow('Registration:', registrationController.text),
+                                ],
+                              ),
+                            ),
                             actions: [
                               TextButton(
-                                onPressed: () => Navigator.of(context).pop(),
-                                child: const Text('OK'),
+                                onPressed: () {
+                                  Navigator.of(context).pop(); // Close dialog
+                                },
+                                child: const Text(
+                                  'Cancel',
+                                ),
+                              ),
+                              CustomButton(
+                                onPressed: () {
+                                  _vehicleService.addVehicle(
+                                    makeController.text,
+                                    modelController.text,
+                                    colorController.text,
+                                    registrationController.text,
+                                  );
+                                  Navigator.of(context).pop(); // Close dialog
+
+                                },
+                                label: 'Confirm',
+                                fontWeight: FontWeight.w800,
                               ),
                             ],
                           ),
                         );
                       }
                     },
+
                     label: 'Add Vehicle',
                   ),
                 ),

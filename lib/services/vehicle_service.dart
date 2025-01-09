@@ -1,8 +1,11 @@
 
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:pocket_law/constants.dart';
+import 'package:pocket_law/model/AddVehicleResponse.dart';
 import 'package:pocket_law/model/Vehicle.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -54,6 +57,53 @@ class VehicleService{
     return null;
     }
 
+  Future<AddVehicleResponse?> addVehicle(
+       String make, String model, String color, String registrationNumber) async {
+
+    showLoadingDialog("Creating New Vehicle...");
+
+    try {
+      final token = await getToken();
+      var headers = {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      };
+      var data = json.encode({
+        "make": make,
+        "model": model,
+        "color": color,
+        "registration_number": registrationNumber
+      });
+      var dio = Dio();
+      var response = await dio.post(
+        'https://pocketlaw.easygrab.co.zw/api/vehicles',
+        options: Options(
+          headers: headers,
+        ),
+        data: data,
+      );
+
+      if (response.statusCode == 200 && response.data != null) {
+        Navigator.of(Get.context!).pop();
+        Get.snackbar(
+          'Success',
+          'Vehicle Added',
+          snackPosition: SnackPosition.TOP,
+        );
+        Get.offAllNamed(Routes.dashboard);
+        return AddVehicleResponse.fromJson(response.data);
+      }
+    } on DioException catch (e) {
+      Navigator.of(Get.context!).pop();
+      _handleDioError2(e);
+    } catch (e) {
+      Navigator.of(Get.context!).pop();
+      print('Exception occurred while adding vehicles: $e');
+    }
+
+    return null;
+  }
+
   void _handleDioError(DioException e) {
     if (e.response?.statusCode == 401  &&
         e.response?.data['error'] == 'Token Expired') {
@@ -68,6 +118,27 @@ class VehicleService{
       Get.snackbar(
         'Error',
         'No vehicle',
+        snackPosition: SnackPosition.TOP,
+      );
+
+    } else {
+      print('DioError occurred: ${e.message}');
+    }
+  }
+  void _handleDioError2(DioException e) {
+    if (e.response?.statusCode == 401  &&
+        e.response?.data['error'] == 'Token Expired') {
+      Get.snackbar(
+        'Session Expired',
+        'Your session has expired. Please log in again.',
+        snackPosition: SnackPosition.TOP,
+      );
+      Get.offAllNamed(Routes.login);
+    } else if(e.response?.statusCode == 404){
+
+      Get.snackbar(
+        'Error',
+        e.response!.data.toString(),
         snackPosition: SnackPosition.TOP,
       );
 

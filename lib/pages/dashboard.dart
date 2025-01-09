@@ -109,7 +109,7 @@ class Dashboard extends StatelessWidget {
   Widget _buildActionCard(IconData icon, String title, {required VoidCallback onTap}) {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
-      elevation: 2,
+      elevation: 1,
       child: InkWell(
         onTap: onTap,
         borderRadius: BorderRadius.circular(12.0),

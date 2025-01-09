@@ -37,3 +37,64 @@ void showProcessingDialog(String message) {
   );
 }
 
+void showMessageDialog(String message) {
+  showDialog(
+    context: Get.context!,
+    barrierDismissible: true,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20), // Rounded corners
+        ),
+        backgroundColor: Colors.white, // Background color
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(
+              Icons.info, // Information icon
+              size: 50,
+              color: Colors.blue.shade900, // Icon color
+            ),
+            const SizedBox(height: 20),
+            Text(
+              message,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w900,
+                color: Colors.black87, // Text color
+              ),
+            ),
+          ],
+        ),
+        actions: [
+          Center(
+            child: TextButton(
+              onPressed: Get.back,
+              style: TextButton.styleFrom(
+                backgroundColor: Colors.blue.shade900, // Button background
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10), // Rounded button
+                ),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 10,
+                ),
+              ),
+              child: Text(
+                "Ok",
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white, // Button text color
+                ),
+              ),
+            ),
+          ),
+        ],
+      );
+    },
+  );
+}
+
+

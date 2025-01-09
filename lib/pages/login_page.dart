@@ -5,6 +5,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:pocket_law/constants.dart';
 import 'package:pocket_law/routes/routes.dart';
+import 'package:pocket_law/widgets/helper.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../auth/AuthResponse.dart';
@@ -218,7 +219,7 @@ class _LoginPageState extends State<LoginPage> {
           _auth.saveUserData(_newUser);
           Get.toNamed(Routes.dashboard);
         } else {
-          _showErrorDialog(response.data["message"]);
+          showMessageDialog(response.data["message"]);
         }
       } on DioException catch (e) {
         Get.back();
@@ -226,9 +227,9 @@ class _LoginPageState extends State<LoginPage> {
         if (e.type == DioExceptionType.connectionTimeout || e.type == DioExceptionType.unknown) {
           errorMsg = "Network error. Please try again.";
         } else {
-          errorMsg = "Invalid Mobile Number or Password";
+          errorMsg = e.response?.data['message'];
         }
-        _showErrorDialog(errorMsg);
+        showMessageDialog(errorMsg);
       }
     }
   }
