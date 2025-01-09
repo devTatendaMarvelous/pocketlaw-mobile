@@ -4,7 +4,8 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:pocketlaw/services/vehicle_service.dart';
+import 'package:pocket_law/services/vehicle_service.dart';
+
 
 import '../constants.dart';
 import '../routes/routes.dart';

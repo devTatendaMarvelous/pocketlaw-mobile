@@ -2,9 +2,9 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pocketlaw/routes/routes.dart';
-import 'package:pocketlaw/services/crime_service.dart';
-import 'package:pocketlaw/widgets/custom_buttom.dart';
+import 'package:pocket_law/routes/routes.dart';
+import 'package:pocket_law/services/crime_service.dart';
+import 'package:pocket_law/widgets/custom_buttom.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 import '../auth/authModel.dart';

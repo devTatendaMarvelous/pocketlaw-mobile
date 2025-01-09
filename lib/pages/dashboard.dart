@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pocketlaw/pages/crimes_list.dart';
-import 'package:pocketlaw/routes/routes.dart';
+import 'package:pocket_law/pages/crimes_list.dart';
+import 'package:pocket_law/routes/routes.dart';
 
 class Dashboard extends StatelessWidget {
   const Dashboard({super.key});

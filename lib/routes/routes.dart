@@ -2,12 +2,12 @@
 
 
 import 'package:get/get_navigation/src/routes/get_route.dart';
-import 'package:pocketlaw/pages/add_crime.dart';
-import 'package:pocketlaw/pages/confirmed_payment.dart';
-import 'package:pocketlaw/pages/create_offender.dart';
-import 'package:pocketlaw/pages/dashboard.dart';
-import 'package:pocketlaw/pages/login_page.dart';
-import 'package:pocketlaw/pages/payment.dart';
+import 'package:pocket_law/pages/add_crime.dart';
+import 'package:pocket_law/pages/confirmed_payment.dart';
+import 'package:pocket_law/pages/create_offender.dart';
+import 'package:pocket_law/pages/dashboard.dart';
+import 'package:pocket_law/pages/login_page.dart';
+import 'package:pocket_law/pages/payment.dart';
 
 class Routes {
   static const String dashboard = '/dashboard';

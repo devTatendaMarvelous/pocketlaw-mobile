@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
-import 'package:pocketlaw/model/PaymentResponse.dart';
-import 'package:pocketlaw/routes/routes.dart';
-import 'package:pocketlaw/services/vehicle_service.dart';
+import 'package:pocket_law/model/PaymentResponse.dart';
+import 'package:pocket_law/routes/routes.dart';
+import 'package:pocket_law/services/vehicle_service.dart';
 import '../constants.dart';
 
 class PaymentService {

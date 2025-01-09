@@ -3,9 +3,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:pocketlaw/pages/login_page.dart';
-import 'package:pocketlaw/routes/routes.dart';
-import 'package:pocketlaw/ssl.dart';
+import 'package:pocket_law/pages/login_page.dart';
+import 'package:pocket_law/routes/routes.dart';
+import 'package:pocket_law/ssl.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'auth/authModel.dart';
 

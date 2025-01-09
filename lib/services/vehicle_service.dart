@@ -2,8 +2,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:pocketlaw/constants.dart';
-import 'package:pocketlaw/model/Vehicle.dart';
+import 'package:pocket_law/constants.dart';
+import 'package:pocket_law/model/Vehicle.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../routes/routes.dart';

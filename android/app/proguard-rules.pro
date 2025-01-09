@@ -1,3 +1,0 @@
--keep class com.coretex.pocketlaw.** { *; }
--keepattributes *Annotation*
--dontwarn com.coretex.pocketlaw.**

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pocketlaw/auth/AuthResponse.dart';
+import 'package:pocket_law/auth/AuthResponse.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 import '../auth/authModel.dart';

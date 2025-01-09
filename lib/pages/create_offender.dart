@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
-import 'package:pocketlaw/routes/routes.dart';
-import 'package:pocketlaw/services/offender_service.dart';
-import 'package:pocketlaw/widgets/custom_buttom.dart';
+import 'package:pocket_law/routes/routes.dart';
+import 'package:pocket_law/services/offender_service.dart';
+import 'package:pocket_law/widgets/custom_buttom.dart';
 
 import '../model/Offender.dart';
 

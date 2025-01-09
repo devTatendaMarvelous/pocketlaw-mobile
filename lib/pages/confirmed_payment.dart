@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pocketlaw/model/PaymentResponse.dart';
-import 'package:pocketlaw/widgets/custom_buttom.dart';
+import 'package:pocket_law/model/PaymentResponse.dart';
+import 'package:pocket_law/widgets/custom_buttom.dart';
 
 import '../routes/routes.dart';
 

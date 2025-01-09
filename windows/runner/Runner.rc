@@ -89,13 +89,13 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "com.coretex" "\0"
-            VALUE "FileDescription", "pocketlaw" "\0"
+            VALUE "CompanyName", "com.coretech" "\0"
+            VALUE "FileDescription", "pocket_law" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "pocketlaw" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2025 com.coretex. All rights reserved." "\0"
-            VALUE "OriginalFilename", "pocketlaw.exe" "\0"
-            VALUE "ProductName", "pocketlaw" "\0"
+            VALUE "InternalName", "pocket_law" "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2025 com.coretech. All rights reserved." "\0"
+            VALUE "OriginalFilename", "pocket_law.exe" "\0"
+            VALUE "ProductName", "pocket_law" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END
