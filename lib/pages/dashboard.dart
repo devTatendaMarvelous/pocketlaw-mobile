@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pocket_law/pages/crimes_list.dart';
@@ -10,55 +11,146 @@ class Dashboard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            _buildButton(
-              context,
-              label: 'New Offender',
-              onPressed: () => Get.toNamed(Routes.createOffender),
-            ),
-            const SizedBox(height: 20),
-            _buildButton(
-              context,
-              label: 'View Crimes List',
-              onPressed: () => Get.to(() => CrimesList()),
-            ),
-            const SizedBox(height: 20),
-            _buildButton(
-              context,
-              label: 'Settings',
-              onPressed: () => Get.toNamed(""),
-            ),
-          ],
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        backgroundColor: Colors.blue[900],
+        elevation: 0,
+        title: const Text(
+          'Dashboard',
+          style: TextStyle(color: Colors.white),
+        ),
+        centerTitle: true,
+      ),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Greeting Section
+              Text(
+                'Welcome Back User!',
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.grey[800],
+                ),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                'Here’s what’s happening today.',
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.grey[600],
+                ),
+              ),
+              const SizedBox(height: 24),
+
+              // Quick Actions Section
+              Text(
+                'Actions',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.grey[800],
+                ),
+              ),
+              const SizedBox(height: 16),
+              GridView.count(
+                crossAxisCount: 2,
+                shrinkWrap: true,
+                crossAxisSpacing: 16,
+                mainAxisSpacing: 16,
+                physics: const NeverScrollableScrollPhysics(),
+                children: [
+                  _buildActionCard(Icons.person_add, 'New Offender',
+                      onTap: () => Get.toNamed(Routes.createOffender)),
+                  _buildActionCard(CupertinoIcons.car, 'Add Vehicle',
+                      onTap: () => Get.toNamed( Routes.addVehicle)),
+                  _buildActionCard(Icons.settings, 'Settings',
+                      onTap: () => Get.toNamed("")),
+                  _buildActionCard(Icons.info, 'More Info',
+                      onTap: () {
+                        // Add functionality for more info
+                      }),
+                ],
+              ),
+              const SizedBox(height: 24),
+
+              // Recent Activity Section
+              Text(
+                'Recent Activity',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.grey[800],
+                ),
+              ),
+              const SizedBox(height: 16),
+              ListView.separated(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: 2,
+                separatorBuilder: (_, __) => const SizedBox(height: 16),
+                itemBuilder: (context, index) {
+                  return _buildActivityTile(
+                    'Activity ${index + 1}',
+                    'Description of activity ${index + 1}',
+                  );
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 
-  Widget _buildButton(BuildContext context, {
-    required String label,
-    required VoidCallback onPressed,
-  }) {
-    return ElevatedButton(
-      onPressed: onPressed,
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.blue[900],
-        minimumSize: const Size(300, 60),
-        padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-        elevation: 0,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(5.0),
+  Widget _buildActionCard(IconData icon, String title, {required VoidCallback onTap}) {
+    return Card(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
+      elevation: 2,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(12.0),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(icon, size: 40, color: Colors.blue[900]),
+              const SizedBox(height: 8),
+              Text(
+                title,
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 16, color: Colors.grey[800]),
+              ),
+            ],
+          ),
         ),
       ),
-      child: Text(
-        label,
-        style: const TextStyle(
-          color: Colors.white,
-          fontSize: 17.0,
+    );
+  }
+
+  Widget _buildActivityTile(String title, String description) {
+    return ListTile(
+      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      tileColor: Colors.grey[100],
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
+      leading: Icon(Icons.check_circle_outline, color: Colors.blue[900]),
+      title: Text(
+        title,
+        style: TextStyle(
           fontWeight: FontWeight.bold,
+          fontSize: 16,
+          color: Colors.grey[800],
+        ),
+      ),
+      subtitle: Text(
+        description,
+        style: TextStyle(
+          fontSize: 14,
+          color: Colors.grey[600],
         ),
       ),
     );

@@ -83,12 +83,12 @@ class _LoginPageState extends State<LoginPage> {
         suffixIcon: const Icon(Icons.person),
         contentPadding: const EdgeInsets.all(17.0),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(5.0),
-          borderSide: const BorderSide(color: Colors.black),
+          borderRadius: BorderRadius.circular(16.0),
+          borderSide: BorderSide(color: Colors.blue.shade100),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(5.0),
-          borderSide: const BorderSide(color: Colors.black),
+          borderRadius: BorderRadius.circular(16.0),
+          borderSide: BorderSide(color: Colors.blue.shade900),
         ),
       ),
       keyboardType: TextInputType.emailAddress,
@@ -127,12 +127,12 @@ class _LoginPageState extends State<LoginPage> {
         ),
         contentPadding: const EdgeInsets.all(17.0),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(5.0),
-          borderSide: const BorderSide(color: Colors.black),
+          borderRadius: BorderRadius.circular(16.0),
+          borderSide: BorderSide(color: Colors.blue.shade100),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(5.0),
-          borderSide: const BorderSide(color: Colors.black),
+          borderRadius: BorderRadius.circular(16.0),
+          borderSide: BorderSide(color: Colors.blue.shade900),
         ),
       ),
       cursorColor: Colors.black,
@@ -158,7 +158,7 @@ class _LoginPageState extends State<LoginPage> {
           padding: const EdgeInsets.symmetric(vertical: 15),
           elevation: 0,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(5.0),
+            borderRadius: BorderRadius.circular(16.0),
           ),
         ),
         child: const Text(

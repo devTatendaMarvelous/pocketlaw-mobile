@@ -31,18 +31,19 @@ class OffenderService {
   }
 
   Future<Offender?> addOffender(
-      String name, String idNumber, String licenseNumber) async {
-    // Show loading dialog
+      String name, String idNumber, String licenseNumber, String phoneNumber, String email) async {
     showLoadingDialog("Creating New Offender...");
 
     try {
       final token = await service.getToken();
       final response = await _dio.post(
-        '/offenders',
+        'https://pocketlaw.easygrab.co.zw/api/offenders',
         data: {
           "name": name,
           "id_number": idNumber,
           "license_number": licenseNumber,
+          "email": email,
+          "phone": phoneNumber
         },
         options: Options(headers: {'Authorization': 'Bearer $token'}),
       );
@@ -55,7 +56,7 @@ class OffenderService {
       Navigator.of(Get.context!).pop();
       _handleDioError(e);
     } catch (e) {
-      Navigator.of(Get.context!).pop(); // Ensure the dialog is dismissed
+      Navigator.of(Get.context!).pop();
       print('Exception occurred while adding offender: $e');
     }
 
@@ -64,7 +65,7 @@ class OffenderService {
 
   void _handleDioError(DioException e) {
     if (e.response?.statusCode == 401 &&
-        e.response?.data['error'] == 'Token Expired') {
+        e.response?.data['error'] == 'Token Expired' ) {
       Get.snackbar(
         'Session Expired',
         'Your session has expired. Please log in again.',

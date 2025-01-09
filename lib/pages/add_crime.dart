@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:pocket_law/routes/routes.dart';
 import 'package:pocket_law/services/crime_service.dart';
 import 'package:pocket_law/widgets/custom_buttom.dart';
+import 'package:pocket_law/widgets/custom_textformfield.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 import '../auth/authModel.dart';
@@ -135,53 +136,9 @@ class _AddCrimeState extends State<AddCrime> {
                 ),
 
               ),
-              TextFormField(
-                controller: _regNumberController,
-                decoration: InputDecoration(
-                  labelText: 'Vehicle Reg. Number',
-                  labelStyle: const TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  contentPadding: const EdgeInsets.all(17.0),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(5.0),
-                    borderSide: const BorderSide(color: Colors.black),
-                  ),
-                ),
-                cursorColor: Colors.black,
-                style: const TextStyle(color: Colors.black),
-              ),
-              // if (_vehicleError != null)
-              //  Text(
-              //       _vehicleError!,
-              //       style: TextStyle(color: Colors.red[900]),
-              //     ),
-              // if (_fetchedVehicleData != null)
-              //   Padding(
-              //     padding: const EdgeInsets.only(top: 8.0),
-              //     child: Text(
-              //       'Fetched Vehicle: ${_fetchedVehicleData?.make} ${_fetchedVehicleData?.model} (${_fetchedVehicleData?.id})',
-              //       style: const TextStyle(color: Colors.black),
-              //     ),
-              //   ),
-              TextFormField(
-                controller: _locationController,
-                decoration: InputDecoration(
-                  labelText: 'Location',
-                  labelStyle: const TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  contentPadding: const EdgeInsets.all(17.0),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(5.0),
-                    borderSide: const BorderSide(color: Colors.black),
-                  ),
-                ),
-                cursorColor: Colors.black,
-                style: const TextStyle(color: Colors.black),
-              ),
+              CustomTextFormField(controller: _regNumberController, labelText: 'Vehicle Reg. Number'),
+              CustomTextFormField(controller: _locationController, labelText: 'Location'),
+
 
 
               Center(
@@ -313,7 +270,6 @@ class _AddCrimeState extends State<AddCrime> {
       },
     );
   }
-
 
 
 
