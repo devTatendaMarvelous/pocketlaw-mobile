@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 
 class CustomTextField extends StatelessWidget {
-  const CustomTextField({super.key, required this.label, this.controller});
+  const CustomTextField({super.key, required this.label, this.controller, this.maxlines});
 
   final TextEditingController? controller;
 
   final String label;
+  final int? maxlines;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      maxLines: maxlines,
       controller: controller,
       decoration: InputDecoration(
           labelText: label,

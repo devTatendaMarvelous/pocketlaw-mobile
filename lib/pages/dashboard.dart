@@ -67,8 +67,8 @@ class Dashboard extends StatelessWidget {
                       onTap: () => Get.toNamed(Routes.createOffender)),
                   _buildActionCard(CupertinoIcons.car, 'Add Vehicle',
                       onTap: () => Get.toNamed( Routes.addVehicle)),
-                  _buildActionCard(Icons.settings, 'Settings',
-                      onTap: () => Get.toNamed("")),
+                  _buildActionCard(Icons.add_comment_rounded, 'Add Complaint',
+                      onTap: () => Get.toNamed(Routes.addComplaint)),
                   _buildActionCard(Icons.info, 'More Info',
                       onTap: () {
                         // Add functionality for more info

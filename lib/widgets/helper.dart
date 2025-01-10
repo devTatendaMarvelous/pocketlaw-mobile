@@ -1,5 +1,8 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../routes/routes.dart';
 
 void showLoadingDialog(String message) {
   showDialog(
@@ -95,6 +98,28 @@ void showMessageDialog(String message) {
       );
     },
   );
+}
+
+void handleDioError(DioException e) {
+  if (e.response?.statusCode == 401  &&
+      e.response?.data['error'] == 'Token Expired') {
+    Get.snackbar(
+      'Session Expired',
+      'Your session has expired. Please log in again.',
+      snackPosition: SnackPosition.TOP,
+    );
+    Get.offAllNamed(Routes.login);
+  } else if(e.response?.statusCode == 404){
+
+    Get.snackbar(
+      'Error',
+      'No vehicle',
+      snackPosition: SnackPosition.TOP,
+    );
+
+  } else {
+    print('DioError occurred: ${e.message}');
+  }
 }
 
 

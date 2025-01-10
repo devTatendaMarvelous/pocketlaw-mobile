@@ -42,6 +42,7 @@ dependencies:
   scoped_model:
   intl:
   dropdown_button2:
+  file_picker: ^8.1.7
 
 dev_dependencies:
   flutter_test:

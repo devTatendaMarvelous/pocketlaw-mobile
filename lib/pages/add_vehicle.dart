@@ -121,13 +121,14 @@ class AddVehiclePage extends StatelessWidget {
                               ),
                               CustomButton(
                                 onPressed: () {
+                                  Navigator.of(context).pop();
                                   _vehicleService.addVehicle(
                                     makeController.text,
                                     modelController.text,
                                     colorController.text,
                                     registrationController.text,
                                   );
-                                  Navigator.of(context).pop(); // Close dialog
+
 
                                 },
                                 label: 'Confirm',

@@ -58,8 +58,7 @@ class VehicleService{
     }
 
   Future<AddVehicleResponse?> addVehicle(
-       String make, String model, String color, String registrationNumber) async {
-
+      String make, String model, String color, String registrationNumber) async {
     showLoadingDialog("Creating New Vehicle...");
 
     try {
@@ -84,7 +83,7 @@ class VehicleService{
       );
 
       if (response.statusCode == 200 && response.data != null) {
-        Navigator.of(Get.context!).pop();
+        Navigator.of(Get.context!).pop(); // Close loading dialog
         Get.snackbar(
           'Success',
           'Vehicle Added',
@@ -103,6 +102,7 @@ class VehicleService{
 
     return null;
   }
+
 
   void _handleDioError(DioException e) {
     if (e.response?.statusCode == 401  &&
