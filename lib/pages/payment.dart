@@ -27,6 +27,7 @@ class _PaymentState extends State<Payment> {
   final crimeId = Get.arguments['crimeId'];
   bool showPhoneNumberField = false;
   final TextEditingController _amountController = TextEditingController();
+  final TextEditingController _phoneNumberController = TextEditingController();
   PaymentService _paymentService = PaymentService();
 
 
@@ -98,7 +99,9 @@ class _PaymentState extends State<Payment> {
             if (showPhoneNumberField)
               Column(
                 children: [
-                  CustomTextField(label: "Phone Number"),
+                  CustomTextField(
+                    controller: _phoneNumberController,
+                      label: "Phone Number"),
                   const SizedBox(height: 20),
                 ],
               ),
@@ -161,7 +164,10 @@ class _PaymentState extends State<Payment> {
                     print("currency id :......$selectedCurrencyId");
                     print("crime id :......$crimeId");
                     double? amount = double.tryParse(_amountController.text);
-                    _paymentService.addPayment(crimeId, selectedCurrencyId!, amount!, selectedCurrencyId!);
+                    _paymentService.addPayment(crimeId, selectedPaymentMethodId!, amount!, selectedCurrencyId!);
+
+
+
 
                   },
                 ),

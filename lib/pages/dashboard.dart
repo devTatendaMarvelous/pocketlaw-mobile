@@ -24,82 +24,84 @@ class Dashboard extends StatelessWidget {
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Greeting Section
-              Text(
-                'Welcome Back User!',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.grey[800],
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                // Greeting Section
+                Text(
+                  'Pocket Law!',
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.grey[800],
+                  ),
                 ),
-              ),
-              const SizedBox(height: 8),
-              Text(
-                'Here’s what’s happening today.',
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.grey[600],
+                const SizedBox(height: 8),
+                Text(
+                  'Here’s what’s happening today.',
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.grey[600],
+                  ),
                 ),
-              ),
-              const SizedBox(height: 24),
-
-              // Quick Actions Section
-              Text(
-                'Actions',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.grey[800],
+                const SizedBox(height: 24),
+            
+                // Quick Actions Section
+                Text(
+                  'Actions',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.grey[800],
+                  ),
                 ),
-              ),
-              const SizedBox(height: 16),
-              GridView.count(
-                crossAxisCount: 2,
-                shrinkWrap: true,
-                crossAxisSpacing: 16,
-                mainAxisSpacing: 16,
-                physics: const NeverScrollableScrollPhysics(),
-                children: [
-                  _buildActionCard(Icons.person_add, 'New Offender',
-                      onTap: () => Get.toNamed(Routes.createOffender)),
-                  _buildActionCard(CupertinoIcons.car, 'Add Vehicle',
-                      onTap: () => Get.toNamed( Routes.addVehicle)),
-                  _buildActionCard(Icons.add_comment_rounded, 'Add Complaint',
-                      onTap: () => Get.toNamed(Routes.addComplaint)),
-                  _buildActionCard(Icons.info, 'More Info',
-                      onTap: () {
-                        // Add functionality for more info
-                      }),
-                ],
-              ),
-              const SizedBox(height: 24),
-
-              // Recent Activity Section
-              Text(
-                'Recent Activity',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.grey[800],
+                const SizedBox(height: 16),
+                GridView.count(
+                  crossAxisCount: 2,
+                  shrinkWrap: true,
+                  crossAxisSpacing: 16,
+                  mainAxisSpacing: 16,
+                  physics: const NeverScrollableScrollPhysics(),
+                  children: [
+                    _buildActionCard(Icons.person_add, 'New Offender',
+                        onTap: () => Get.toNamed(Routes.createOffender)),
+                    _buildActionCard(CupertinoIcons.car, 'Add Vehicle',
+                        onTap: () => Get.toNamed( Routes.addVehicle)),
+                    _buildActionCard(Icons.add_comment_rounded, 'Add Complaint',
+                        onTap: () => Get.toNamed(Routes.addComplaint)),
+                    _buildActionCard(Icons.info, 'More Info',
+                        onTap: () {
+                          // Add functionality for more info
+                        }),
+                  ],
                 ),
-              ),
-              const SizedBox(height: 16),
-              ListView.separated(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: 2,
-                separatorBuilder: (_, __) => const SizedBox(height: 16),
-                itemBuilder: (context, index) {
-                  return _buildActivityTile(
-                    'Activity ${index + 1}',
-                    'Description of activity ${index + 1}',
-                  );
-                },
-              ),
-            ],
+                const SizedBox(height: 24),
+            
+                // // Recent Activity Section
+                // Text(
+                //   'Recent Activity',
+                //   style: TextStyle(
+                //     fontSize: 18,
+                //     fontWeight: FontWeight.w600,
+                //     color: Colors.grey[800],
+                //   ),
+                // ),
+                // const SizedBox(height: 16),
+                // ListView.separated(
+                //   shrinkWrap: true,
+                //   physics: const NeverScrollableScrollPhysics(),
+                //   itemCount: 2,
+                //   separatorBuilder: (_, __) => const SizedBox(height: 16),
+                //   itemBuilder: (context, index) {
+                //     return _buildActivityTile(
+                //       'Activity ${index + 1}',
+                //       'Description of activity ${index + 1}',
+                //     );
+                //   },
+                // ),
+              ],
+            ),
           ),
         ),
       ),

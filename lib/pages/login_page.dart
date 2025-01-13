@@ -85,7 +85,11 @@ class _LoginPageState extends State<LoginPage> {
         contentPadding: const EdgeInsets.all(17.0),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16.0),
-          borderSide: BorderSide(color: Colors.blue.shade100),
+          borderSide: BorderSide(color: Colors.blue.shade600),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16.0),
+          borderSide: BorderSide(color: Colors.blue.shade600), // Normal state
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16.0),
@@ -129,7 +133,11 @@ class _LoginPageState extends State<LoginPage> {
         contentPadding: const EdgeInsets.all(17.0),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16.0),
-          borderSide: BorderSide(color: Colors.blue.shade100),
+          borderSide: BorderSide(color: Colors.blue.shade600),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16.0),
+          borderSide: BorderSide(color: Colors.blue.shade600), // Normal state
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16.0),

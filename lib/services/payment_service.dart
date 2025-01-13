@@ -1,10 +1,12 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:pocket_law/model/PaymentResponse.dart';
 import 'package:pocket_law/routes/routes.dart';
 import 'package:pocket_law/services/vehicle_service.dart';
 import '../constants.dart';
+import '../widgets/helper.dart';
 
 class PaymentService {
   final Dio _dio = Dio(BaseOptions(
@@ -15,6 +17,8 @@ class PaymentService {
 
   Future<void> addPayment(
       int crimeId, int paymentMethodId, double amount, int currencyId) async {
+
+    showLoadingDialog("Processing...");
     try {
       var token = await service.getToken();
 
@@ -38,18 +42,22 @@ class PaymentService {
       );
 
       if (response.statusCode == 200) {
+        Navigator.of(Get.context!).pop();
         var paymentResponse = PaymentResponse.fromJson(response.data);
         print(response.statusMessage);
 
-        Get.toNamed(
+        Get.offAllNamed(
           Routes.confirmPayment,
           arguments: paymentResponse,
         );
+
       } else {
+        Navigator.of(Get.context!).pop();
         print(response.statusMessage);
         print(response.data);
       }
     } on DioException catch (e) {
+      Navigator.of(Get.context!).pop();
       if (e.response?.statusCode == 401 &&
           e.response?.data['error'] == 'Token Expired') {
         Get.snackbar(
@@ -62,6 +70,7 @@ class PaymentService {
         print('DioError occurred: ${e.message}');
       }
     } catch (e) {
+      Navigator.of(Get.context!).pop();
       print('Exception occurred: $e');
     }
   }

@@ -113,6 +113,7 @@ class _CreateOffenderState extends State<CreateOffender> {
                         child: CustomButton(
                           label: "Charge",
                           onPressed: () {
+
                             if (_formKey.currentState?.validate() ?? false) {
                               _getOffender();
                               _licenseNumber.clear();
@@ -120,8 +121,8 @@ class _CreateOffenderState extends State<CreateOffender> {
                               _idNumber.clear();
                               _phoneNumber.clear();
                               _email.clear();
-
                             }
+
                           },
                         ),
                       ),
