@@ -5,7 +5,7 @@ class CustomButton extends StatelessWidget {
   const CustomButton({super.key, required this.label, required this.onPressed, this.fontWeight, this.fontSize});
 
   final String label;
-  final Function() onPressed;
+  final Function()? onPressed;
   final FontWeight? fontWeight;
   final double? fontSize;
 

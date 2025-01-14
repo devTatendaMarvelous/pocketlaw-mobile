@@ -146,7 +146,7 @@ class _ComplaintPageState extends State<ComplaintPage> {
                 SizedBox(
                   width: 100,
                   child: CustomButton(
-                    onPressed: () => _pickFile,
+                    onPressed: _pickFile,
                     label: 'Pick File 📁',
                   ),
                 ),
@@ -158,7 +158,7 @@ class _ComplaintPageState extends State<ComplaintPage> {
                   child: SizedBox(
                     width: 120,
                     child: CustomButton(
-                      onPressed: () => _isLoading ? null : _submitComplaint,
+                      onPressed: _isLoading ? null : _submitComplaint,
                       label: 'Submit',
                     ),
                   ),
