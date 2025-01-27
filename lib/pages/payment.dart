@@ -9,6 +9,7 @@ import 'package:pocket_law/services/payment_service.dart';
 import 'package:pocket_law/widgets/custom_textfield.dart';
 import 'package:scoped_model/scoped_model.dart';
 
+import '../generated/assets.dart';
 import '../widgets/custom_buttom.dart';
 
 class Payment extends StatefulWidget {
@@ -52,47 +53,59 @@ class _PaymentState extends State<Payment> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Text(
-              'Select Payment Method',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
+
+            SizedBox(
+                height: 150,
+                child: Image.asset(Assets.assetsCreditCard)
+            ),
+            const SizedBox(height: 40),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: const Text(
+                'Select Payment Method',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
               ),
             ),
             const SizedBox(height: 10),
-            Wrap(
-              spacing: 8.0,
-              runSpacing: 4.0,
-              children: paymentMethods.map((method) {
-                return ChoiceChip(
-                  label: Text(
-                    method['name'],
-                    style: TextStyle(
-                      color: selectedPaymentMethod == method['name']
-                          ? Colors.white
-                          : Colors.black,
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Wrap(
+                spacing: 8.0,
+                runSpacing: 4.0,
+                children: paymentMethods.map((method) {
+                  return ChoiceChip(
+                    label: Text(
+                      method['name'],
+                      style: TextStyle(
+                        color: selectedPaymentMethod == method['name']
+                            ? Colors.white
+                            : Colors.black,
+                      ),
                     ),
-                  ),
-                  selected: selectedPaymentMethod == method['name'],
-                  onSelected: (selected) {
-                    setState(() {
-                      selectedPaymentMethod = selected ? method['name'] : null;
-                      selectedPaymentMethodId = selected ? method['id'] : null;
-                      // Toggle visibility for the phone number field
-                      showPhoneNumberField =
-                          selectedPaymentMethod == "Ecocash USD";
-                    });
-                  },
-                  selectedColor: Colors.blue,
-                  backgroundColor: Colors.grey[200],
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                );
-              }).toList(),
+                    selected: selectedPaymentMethod == method['name'],
+                    onSelected: (selected) {
+                      setState(() {
+                        selectedPaymentMethod = selected ? method['name'] : null;
+                        selectedPaymentMethodId = selected ? method['id'] : null;
+                        // Toggle visibility for the phone number field
+                        showPhoneNumberField =
+                            selectedPaymentMethod == "Ecocash USD";
+                      });
+                    },
+                    selectedColor: Colors.blue,
+                    backgroundColor: Colors.grey[200],
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                  );
+                }).toList(),
+              ),
             ),
             const SizedBox(height: 20),
 
@@ -147,9 +160,7 @@ class _PaymentState extends State<Payment> {
                 icon: Icon(Icons.arrow_drop_down, color: Colors.blue[900]),
                 iconSize: 24,
               ),
-
             ),
-
 
             const SizedBox(height: 20),
             CustomTextField(label: "Amount", controller: _amountController,),
@@ -165,10 +176,6 @@ class _PaymentState extends State<Payment> {
                     print("crime id :......$crimeId");
                     double? amount = double.tryParse(_amountController.text);
                     _paymentService.addPayment(crimeId, selectedPaymentMethodId!, amount!, selectedCurrencyId!);
-
-
-
-
                   },
                 ),
               ),

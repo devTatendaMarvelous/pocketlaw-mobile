@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pocket_law/services/vehicle_service.dart';
 import 'package:pocket_law/widgets/custom_buttom.dart';
 
+import '../generated/assets.dart';
 import '../widgets/custom_textformfield.dart';
 import 'confirmed_payment.dart';
 
@@ -23,16 +24,20 @@ class AddVehiclePage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.blue[900],
         title: const Text('Add Vehicle', style: TextStyle(color: Colors.white)),
-        centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(
           key: _formKey,
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              SizedBox(
+                  height: 150,
+                  child: Image.asset(Assets.assetsAdd)
+              ),
+              const SizedBox(height: 40),
               CustomTextFormField(
                 controller: makeController,
                 labelText: 'Make',

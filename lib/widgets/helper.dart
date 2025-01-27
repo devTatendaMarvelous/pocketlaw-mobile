@@ -54,8 +54,8 @@ void showMessageDialog(String message) {
           mainAxisSize: MainAxisSize.min,
           children: [
             Icon(
-              Icons.info, // Information icon
-              size: 50,
+              Icons.error, // Information icon
+              size: 25,
               color: Colors.blue.shade900, // Icon color
             ),
             const SizedBox(height: 20),
@@ -72,24 +72,28 @@ void showMessageDialog(String message) {
         ),
         actions: [
           Center(
-            child: TextButton(
-              onPressed: Get.back,
-              style: TextButton.styleFrom(
-                backgroundColor: Colors.blue.shade900, // Button background
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10), // Rounded button
+            child: SizedBox(
+              width: 60,
+              height: 40,
+              child: TextButton(
+                onPressed: Get.back,
+                style: TextButton.styleFrom(
+                  backgroundColor: Colors.blue.shade900,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20,
+                    vertical: 10,
+                  ),
                 ),
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 20,
-                  vertical: 10,
-                ),
-              ),
-              child: Text(
-                "Ok",
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white, // Button text color
+                child: Text(
+                  "Ok",
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white, // Button text color
+                  ),
                 ),
               ),
             ),

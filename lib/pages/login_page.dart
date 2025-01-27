@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:pocket_law/constants.dart';
+import 'package:pocket_law/generated/assets.dart';
 import 'package:pocket_law/routes/routes.dart';
 import 'package:pocket_law/widgets/helper.dart';
 import 'package:scoped_model/scoped_model.dart';
@@ -47,7 +48,16 @@ class _LoginPageState extends State<LoginPage> {
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(
                 children: [
-                  const SizedBox(height: 20),
+                  SizedBox(
+                    height: 150,
+                      child: Image.asset(Assets.assetsTraffic)
+                  ),
+                  const SizedBox(height: 25),
+                  Text("PocketLaw", style: TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.w900
+                  ),),
+                  const SizedBox(height: 50),
                   Form(
                     key: formKey,
                     child: Column(
@@ -195,8 +205,8 @@ class _LoginPageState extends State<LoginPage> {
               borderRadius: BorderRadius.circular(8),
               color: Colors.white,
             ),
-            child: const SpinKitFadingCircle(
-              color: Colors.black,
+            child:  SpinKitFadingCircle(
+              color: Colors.blue[900],
               size: 23,
             ),
           ),
@@ -234,10 +244,13 @@ class _LoginPageState extends State<LoginPage> {
         String errorMsg = "An error occurred";
         if (e.type == DioExceptionType.connectionTimeout || e.type == DioExceptionType.unknown) {
           errorMsg = "Network error. Please try again.";
+        } else if(e.response?.statusCode == 500){
+          showMessageDialog("${e.response!.statusMessage}");
         } else {
           errorMsg = e.response?.data['message'];
+          showMessageDialog(errorMsg);
         }
-        showMessageDialog(errorMsg);
+
       }
     }
   }

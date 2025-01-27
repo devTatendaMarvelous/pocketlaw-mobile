@@ -1,8 +1,7 @@
-import 'dart:convert';
 import 'dart:io';
-import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/material.dart';
 import 'package:pocket_law/widgets/custom_buttom.dart';
 import 'package:pocket_law/widgets/custom_textformfield.dart';
 
@@ -124,7 +123,8 @@ class _ComplaintPageState extends State<ComplaintPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Submit Complaint'),
+        backgroundColor: Colors.blue[900],
+        title: Text('Submit Complaint', style: TextStyle(color: Colors.white),),
       ),
       body: Stack(
         children: [

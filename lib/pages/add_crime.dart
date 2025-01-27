@@ -29,14 +29,7 @@ class _AddCrimeState extends State<AddCrime> {
   final TextEditingController _locationController = TextEditingController();
   final VehicleService _vehicleService = VehicleService();
   final CrimeServices _crimeServices = CrimeServices();
-  Data? _fetchedVehicleData;
   final offenderId = Get.arguments['offenderId'];
-
-  String? _vehicleError;
-
-
-
-
 
   late AuthModel _auth;
 
@@ -167,8 +160,6 @@ class _AddCrimeState extends State<AddCrime> {
     final regNumber = _regNumberController.text.trim();
     if (regNumber.isEmpty) {
       setState(() {
-        _vehicleError = "Please enter a registration number.";
-        _fetchedVehicleData = null;
       });
       return;
     }
@@ -176,12 +167,8 @@ class _AddCrimeState extends State<AddCrime> {
     final vehicle = await _vehicleService.fetchVehicle(regNumber);
     setState(() {
       if (vehicle != null && vehicle.data != null) {
-        _fetchedVehicleData = vehicle.data;
-        _vehicleError = null;
         _showVehicleConfirmationDialog(vehicle.data!);
       } else {
-        _fetchedVehicleData = null;
-        _vehicleError = "Vehicle not found or failed to fetch.";
       }
     });
   }

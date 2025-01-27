@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pocket_law/model/Offender.dart';
 import 'package:pocket_law/services/vehicle_service.dart';
+import 'package:pocket_law/widgets/helper.dart';
 import '../constants.dart';
 import '../routes/routes.dart';
 
@@ -73,8 +74,10 @@ class OffenderService {
       );
       Get.offAllNamed(Routes.login);
     } else {
+      showMessageDialog("${e.message}");
       print('DioError occurred: ${e.message}');
     }
+
   }
 
   void showLoadingDialog(String message) {

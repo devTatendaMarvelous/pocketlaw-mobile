@@ -12,37 +12,67 @@ class CustomTextFormField extends StatelessWidget {
     super.key,
     required this.controller,
     required this.labelText,
-    this.validator, this.prefixIcon, this.suffixIcon, this.maxLines,
+    this.validator,
+    this.prefixIcon,
+    this.suffixIcon,
+    this.maxLines,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      maxLines: maxLines,
+      maxLines: maxLines ?? 1,
       controller: controller,
       decoration: InputDecoration(
-
         labelText: labelText,
         labelStyle: const TextStyle(
-            color: Colors.black, fontWeight: FontWeight.bold),
-        contentPadding: const EdgeInsets.all(17.0),
+          color: Colors.black,
+          fontWeight: FontWeight.bold,
+        ),
+        prefixIcon: prefixIcon,
+        suffixIcon: suffixIcon,
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 20.0,
+          vertical: 15.0,
+        ),
         filled: true,
         fillColor: Colors.blueGrey[50],
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16.0),
-          borderSide: BorderSide(color: Colors.blue.shade900),
+          borderSide: BorderSide(
+            color: Colors.blue.shade900,
+          ),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16.0),
-          borderSide: BorderSide(color: Colors.blue.shade600), // Normal state
+          borderSide: BorderSide(
+            color: Colors.blue.shade600,
+          ),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16.0),
-          borderSide: BorderSide(color: Colors.blue.shade900),
+          borderSide: BorderSide(
+            color: Colors.blue.shade900,
+            width: 2.0,
+          ),
         ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16.0),
+          borderSide: BorderSide(
+            color: Colors.red.shade600,
+          ),
+        ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16.0),
+          borderSide: BorderSide(
+            color: Colors.red.shade900,
+            width: 2.0,
+          ),
+        ),
+        floatingLabelBehavior: FloatingLabelBehavior.auto,
       ),
-      cursorColor: Colors.black,
-      style: const TextStyle(color: Colors.black),
+      cursorColor: Colors.blue.shade900,
+      style: const TextStyle(color: Colors.black, fontSize: 16.0),
       validator: validator,
     );
   }
