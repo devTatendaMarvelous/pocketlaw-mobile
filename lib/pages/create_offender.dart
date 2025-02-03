@@ -45,102 +45,113 @@ class _CreateOffenderState extends State<CreateOffender> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: Colors.blue.shade900,
-        foregroundColor: CupertinoColors.white,
         title: Text("Offender Details"),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Form(
-          key: _formKey,
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(
-                    height: 200,
-                    child: Image.asset(Assets.assetsTraff)
-                ),
-                SizedBox(height: 20,),
-                Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      children: [
-                        CustomTextFormField(
-                          controller: _name,
-                          labelText: 'Full Name of Offender',
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter the full name of the offender';
-                            }
-                            return null;
-                          },
-                        ),
-                        const SizedBox(height: 20),
-                        CustomTextFormField(
-                          controller: _phoneNumber,
-                          labelText: 'Phone Number',
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter the phone number';
-                            }
-                            return null;
-                          },
-                        ),
-                        const SizedBox(height: 20),
-                        CustomTextFormField(
-                          controller: _email,
-                          labelText: 'Email (optional)',
-                        ),
-                        const SizedBox(height: 20),
-                        CustomTextFormField(
-                          controller: _idNumber,
-                          labelText: 'ID Number',
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter the ID number';
-                            }
-                            return null;
-                          },
-                        ),
-                        const SizedBox(height: 20),
-                        CustomTextFormField(
-                          controller: _licenseNumber,
-                          labelText: 'License Number',
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter the license number';
-                            }
-                            return null;
-                          },
-                        ),
-                        const SizedBox(height: 20),
-                        SizedBox(
-                          width: 350,
-                          height: 50,
-                          child: CustomButton(
-                            label: "Charge",
-                            onPressed: () {
-
-                              if (_formKey.currentState?.validate() ?? false) {
-                                _getOffender();
-                                _licenseNumber.clear();
-                                _name.clear();
-                                _idNumber.clear();
-                                _phoneNumber.clear();
-                                _email.clear();
-                              }
-
-                            },
-                          ),
-                        ),
-                      ],
-                    )
-
-
-                  ),
-                )
+      body: SizedBox.expand(
+        child: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                Color(0xFF0A0E21),
+                Color(0xFF1D1E33),
               ],
+            ),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Form(
+              key: _formKey,
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                        height: 200,
+                        child: Image.asset(Assets.assetsTraff,color: Colors.white,)
+                    ),
+                    SizedBox(height: 20,),
+                     Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          children: [
+                            CustomTextFormField(
+                              controller: _name,
+                              labelText: 'Full Name of Offender',
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter the full name of the offender';
+                                }
+                                return null;
+                              },
+                            ),
+                            const SizedBox(height: 20),
+                            CustomTextFormField(
+                              controller: _phoneNumber,
+                              labelText: 'Phone Number',
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter the phone number';
+                                }
+                                return null;
+                              },
+                            ),
+                            const SizedBox(height: 20),
+                            CustomTextFormField(
+                              controller: _email,
+                              labelText: 'Email (optional)',
+                            ),
+                            const SizedBox(height: 20),
+                            CustomTextFormField(
+                              controller: _idNumber,
+                              labelText: 'ID Number',
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter the ID number';
+                                }
+                                return null;
+                              },
+                            ),
+                            const SizedBox(height: 20),
+                            CustomTextFormField(
+                              controller: _licenseNumber,
+                              labelText: 'License Number',
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter the license number';
+                                }
+                                return null;
+                              },
+                            ),
+                            const SizedBox(height: 20),
+                            SizedBox(
+                              width: 350,
+                              height: 50,
+                              child: CustomButton(
+                                label: "Charge",
+                                onPressed: () {
+
+                                  if (_formKey.currentState?.validate() ?? false) {
+                                    _getOffender();
+                                    _licenseNumber.clear();
+                                    _name.clear();
+                                    _idNumber.clear();
+                                    _phoneNumber.clear();
+                                    _email.clear();
+                                  }
+
+                                },
+                              ),
+                            ),
+                          ],
+                        )
+
+                      ),
+
+                  ],
+                ),
+              ),
             ),
           ),
         ),

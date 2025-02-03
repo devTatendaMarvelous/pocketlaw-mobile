@@ -68,7 +68,7 @@ class ConfirmedPaymentPage extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Card(
                 elevation: 4,
-                surfaceTintColor: CupertinoColors.white,
+                color: Colors.blue.shade900,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15),
                 ),
@@ -119,14 +119,14 @@ Widget buildDetailRow(String title, String? value) {
           style: const TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.bold,
-            color: Colors.black87,
+            color: Colors.white60,
           ),
         ),
         Text(
           value!,
           style:  TextStyle(
             fontSize: 16,
-            color: Colors.blue.shade900,
+            color: Colors.blue.shade50,
           ),
         ),
       ],

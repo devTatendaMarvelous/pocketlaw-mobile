@@ -74,7 +74,7 @@ class OffenderService {
       );
       Get.offAllNamed(Routes.login);
     } else {
-      showMessageDialog("${e.message}");
+      // showMessageDialog("${e.message}");
       print('DioError occurred: ${e.message}');
     }
 

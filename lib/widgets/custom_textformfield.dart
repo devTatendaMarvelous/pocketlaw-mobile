@@ -26,7 +26,7 @@ class CustomTextFormField extends StatelessWidget {
       decoration: InputDecoration(
         labelText: labelText,
         labelStyle: const TextStyle(
-          color: Colors.black,
+          color: Colors.white,
           fontWeight: FontWeight.bold,
         ),
         prefixIcon: prefixIcon,
@@ -36,7 +36,7 @@ class CustomTextFormField extends StatelessWidget {
           vertical: 15.0,
         ),
         filled: true,
-        fillColor: Colors.blueGrey[50],
+        fillColor: Colors.white.withValues(alpha: 0.1),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16.0),
           borderSide: BorderSide(
@@ -45,9 +45,7 @@ class CustomTextFormField extends StatelessWidget {
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16.0),
-          borderSide: BorderSide(
-            color: Colors.blue.shade600,
-          ),
+          borderSide: BorderSide.none,
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16.0),
@@ -72,7 +70,7 @@ class CustomTextFormField extends StatelessWidget {
         floatingLabelBehavior: FloatingLabelBehavior.auto,
       ),
       cursorColor: Colors.blue.shade900,
-      style: const TextStyle(color: Colors.black, fontSize: 16.0),
+      style: const TextStyle(color: Colors.white, fontSize: 16.0),
       validator: validator,
     );
   }

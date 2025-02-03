@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:pocket_law/model/Crimes.dart';
 import 'package:pocket_law/services/vehicle_service.dart';
 
 
@@ -51,7 +52,7 @@ class CrimeServices{
         return true;
       } else if (response.data['error'] == "Token Expired") {
         Navigator.of(Get.context!).pop();
-        Get.offNamed(Routes.dashboard);
+        Get.offNamed(Routes.login);
         Get.snackbar('', 'Token Expired');
         return false;
       }else{
@@ -64,6 +65,43 @@ class CrimeServices{
       print('Exception: $e');
       return false;
     }
+  }
+
+  Future<Crimes?> getCrimes() async{
+
+
+    showLoadingDialog("Processing...");
+
+    try{
+
+      var response = await _dio.request(
+          '$baseURL/crimes',
+          options: Options(
+            method: 'GET',
+          ),
+      );
+
+      if (response.statusCode == 200) {
+        Navigator.of(Get.context!).pop();
+        json.encode(response.data);
+        return Crimes.fromJson(response.data);
+      } else if (response.data['error'] == "Token Expired") {
+        Navigator.of(Get.context!).pop();
+        Get.offNamed(Routes.login);
+        Get.snackbar('', 'Token Expired');
+        return null;
+      }else{
+        Navigator.of(Get.context!).pop();
+        return null;
+      }
+
+    } catch(e){
+      Navigator.of(Get.context!).pop();
+
+      print('Exception: $e');
+      return null;
+    }
+
   }
 
 }

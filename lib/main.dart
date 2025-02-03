@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pocket_law/pages/login_page.dart';
+import 'package:pocket_law/pages/start_page.dart';
 import 'package:pocket_law/routes/routes.dart';
 import 'package:pocket_law/ssl.dart';
 import 'package:scoped_model/scoped_model.dart';
@@ -35,7 +36,7 @@ class MyApp extends StatelessWidget {
         defaultTransition: Transition.cupertino,
         home:ScopedModelDescendant<AuthModel>(
             builder: (context, child, model) {
-              return LoginPage();
+              return StartPage();
             }),
       ),
     );

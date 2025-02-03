@@ -126,4 +126,16 @@ void handleDioError(DioException e) {
   }
 }
 
+ Decoration containerDecoration(){
+  return const BoxDecoration(
+    gradient: LinearGradient(
+      begin: Alignment.topCenter,
+      end: Alignment.bottomCenter,
+      colors: [
+        Color(0xFF0A0E21),
+        Color(0xFF1D1E33),
+      ],
+    ),
+  );
+ }
 

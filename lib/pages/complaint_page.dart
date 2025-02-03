@@ -2,8 +2,12 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/get_navigation.dart';
+
 import 'package:pocket_law/widgets/custom_buttom.dart';
 import 'package:pocket_law/widgets/custom_textformfield.dart';
+import 'package:pocket_law/widgets/helper.dart';
 
 class ComplaintPage extends StatefulWidget {
   @override
@@ -98,8 +102,9 @@ class _ComplaintPageState extends State<ComplaintPage> {
 
       if (response.statusCode == 200) {
         print(response.data);
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Complaint submitted successfully')),
+        Get.snackbar(
+            "Success", "Complaint submitted successfully",
+          backgroundColor: Colors.blue,
         );
       } else {
         print(response.data);
@@ -126,54 +131,57 @@ class _ComplaintPageState extends State<ComplaintPage> {
         backgroundColor: Colors.blue[900],
         title: Text('Submit Complaint', style: TextStyle(color: Colors.white),),
       ),
-      body: Stack(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                CustomTextFormField(
-                  controller: _titleController,
-                  labelText: 'Title',
-                ),
-                SizedBox(height: 16),
-                CustomTextFormField(
-                  controller: _bodyController,
-                  maxLines: 4, labelText: 'Body',
-                ),
-                SizedBox(height: 16),
-                SizedBox(
-                  width: 100,
-                  child: CustomButton(
-                    onPressed: _pickFile,
-                    label: 'Pick File 📁',
+      body: Container(
+        decoration: containerDecoration(),
+        child: Stack(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CustomTextFormField(
+                    controller: _titleController,
+                    labelText: 'Title',
                   ),
-                ),
-
-
-                _buildThumbnail(),
-                SizedBox(height: 16),
-                Center(
-                  child: SizedBox(
-                    width: 120,
+                  SizedBox(height: 16),
+                  CustomTextFormField(
+                    controller: _bodyController,
+                    maxLines: 4, labelText: 'Body',
+                  ),
+                  SizedBox(height: 16),
+                  SizedBox(
+                    width: 100,
                     child: CustomButton(
-                      onPressed: _isLoading ? null : _submitComplaint,
-                      label: 'Submit',
+                      onPressed: _pickFile,
+                      label: 'Pick File 📁',
                     ),
                   ),
-                ),
-              ],
-            ),
-          ),
-          if (_isLoading)
-            Container(
-              color: Colors.black.withAlpha(50),
-              child: Center(
-                child: CircularProgressIndicator(),
+
+
+                  _buildThumbnail(),
+                  SizedBox(height: 16),
+                  Center(
+                    child: SizedBox(
+                      width: 120,
+                      child: CustomButton(
+                        onPressed: _isLoading ? null : _submitComplaint,
+                        label: 'Submit',
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
-        ],
+            if (_isLoading)
+              Container(
+                color: Colors.black.withAlpha(50),
+                child: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              ),
+          ],
+        ),
       ),
     );
   }

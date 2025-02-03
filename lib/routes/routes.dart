@@ -13,6 +13,7 @@ import 'package:pocket_law/pages/number_plate_scanner.dart';
 import 'package:pocket_law/pages/payment.dart';
 
 import '../pages/complaint_page.dart';
+import '../pages/crimes_page.dart';
 
 class Routes {
   static const String dashboard = '/dashboard';
@@ -24,6 +25,7 @@ class Routes {
   static const String confirmPayment = '/confirm-payment';
   static const String addComplaint = '/add-complaint';
   static const String plateScanner = '/plate-scanner';
+  static const String crimes = '/crimes-page';
 }
 
 class AppPages {
@@ -37,5 +39,6 @@ class AppPages {
     GetPage(name: Routes.confirmPayment, page: () => ConfirmedPaymentPage()),
     GetPage(name: Routes.addComplaint, page: () => ComplaintPage()),
     GetPage(name: Routes.plateScanner, page: () => NumberPlateScanner()),
+    GetPage(name: Routes.crimes, page: () => CrimesPage()),
   ];
 }

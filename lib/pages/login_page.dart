@@ -40,38 +40,59 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       backgroundColor: Colors.white,
-      body: GestureDetector(
-        onTap: () => FocusScope.of(context).unfocus(),
-        child: Center(
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: 150,
-                      child: Image.asset(Assets.assetsTraffic)
-                  ),
-                  const SizedBox(height: 25),
-                  Text("PocketLaw", style: TextStyle(
-                    fontSize: 25,
-                    fontWeight: FontWeight.w900
-                  ),),
-                  const SizedBox(height: 50),
-                  Form(
-                    key: formKey,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        _buildEmailField(),
-                        const SizedBox(height: 20),
-                        _buildPasswordField(),
-                        const SizedBox(height: 30),
-                        _buildLoginButton(),
-                      ],
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Color(0xFF0A0E21),
+              Color(0xFF1D1E33),
+            ],
+          ),
+        ),
+        child: GestureDetector(
+          onTap: () => FocusScope.of(context).unfocus(),
+          child: Center(
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Column(
+                  children: [
+                    Container(
+                      height: 150,
+                        padding: const EdgeInsets.all(20),
+                        decoration: BoxDecoration(
+                          color: Colors.white.withValues(alpha: 0.1),
+                          shape: BoxShape.circle,
+                        ),
+                        child: Image.asset(
+                            Assets.assetsTraffic,
+                          color: Colors.grey,
+                        )
                     ),
-                  ),
-                ],
+                    const SizedBox(height: 25),
+                    Text("PocketLaw", style: TextStyle(
+                      fontSize: 25,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w900
+                    ),),
+                    const SizedBox(height: 50),
+                    Form(
+                      key: formKey,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          _buildEmailField(),
+                          const SizedBox(height: 20),
+                          _buildPasswordField(),
+                          const SizedBox(height: 30),
+                          _buildLoginButton(),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
@@ -86,12 +107,17 @@ class _LoginPageState extends State<LoginPage> {
       onSaved: (val) => _mobile = val!,
       readOnly: mobileReadonly,
       decoration: InputDecoration(
+        fillColor: Colors.white.withValues(alpha: 0.1),
+        filled: true,
         labelText: 'Email',
         labelStyle: const TextStyle(
-          color: Colors.black,
+          color: Colors.white,
           fontWeight: FontWeight.bold,
         ),
-        suffixIcon: const Icon(Icons.person),
+        suffixIcon:  Icon(
+            Icons.person,
+            color:Colors.white.withValues(alpha: 0.6)
+        ),
         contentPadding: const EdgeInsets.all(17.0),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16.0),
@@ -99,7 +125,7 @@ class _LoginPageState extends State<LoginPage> {
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16.0),
-          borderSide: BorderSide(color: Colors.blue.shade600), // Normal state
+          borderSide: BorderSide.none, // Normal state
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16.0),
@@ -108,7 +134,7 @@ class _LoginPageState extends State<LoginPage> {
       ),
       keyboardType: TextInputType.emailAddress,
       cursorColor: Colors.black,
-      style: const TextStyle(color: Colors.black),
+      style: const TextStyle(color: Colors.white),
       validator: (val) {
         if (val!.isEmpty) {
           return "Email cannot be empty";
@@ -125,14 +151,17 @@ class _LoginPageState extends State<LoginPage> {
       obscureText: passwordVisible,
       onSaved: (val) => _pin = val!,
       decoration: InputDecoration(
+        filled: true,
+        fillColor: Colors.white.withValues(alpha: 0.1),
         labelText: 'Password',
         labelStyle: const TextStyle(
-          color: Colors.black,
+          color: Colors.white,
           fontWeight: FontWeight.bold,
         ),
         suffixIcon: IconButton(
           icon: Icon(
             passwordVisible ? CupertinoIcons.eye : CupertinoIcons.eye_slash,
+            color: Colors.white.withValues(alpha: 0.6),
           ),
           onPressed: () {
             setState(() {
@@ -147,7 +176,7 @@ class _LoginPageState extends State<LoginPage> {
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16.0),
-          borderSide: BorderSide(color: Colors.blue.shade600), // Normal state
+          borderSide: BorderSide.none, // Normal state
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16.0),
@@ -155,7 +184,7 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
       cursorColor: Colors.black,
-      style: const TextStyle(color: Colors.black),
+      style: const TextStyle(color: Colors.white),
       validator: (val) {
         if (val!.isEmpty) {
           return "Password cannot be empty";
