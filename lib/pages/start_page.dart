@@ -1,10 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../routes/routes.dart';
 
 class StartPage extends StatelessWidget {
   const StartPage({super.key});
+
+  Future<void> _checkLoginStatus() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
+    if (isLoggedIn) {
+      Get.toNamed(Routes.dashboard);
+    }else {
+      Get.toNamed(Routes.login);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +38,7 @@ class StartPage extends StatelessWidget {
             // App Logo/Icon
             InkWell(
               onTap: (){
-                Get.toNamed(Routes.login);
+                _checkLoginStatus();
               },
               child: Container(
                 padding: const EdgeInsets.all(20),

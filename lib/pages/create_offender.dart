@@ -9,6 +9,7 @@ import 'package:pocket_law/widgets/custom_buttom.dart';
 import '../generated/assets.dart';
 import '../model/Offender.dart';
 import '../widgets/custom_textformfield.dart';
+import '../widgets/helper.dart';
 
 class CreateOffender extends StatefulWidget {
   CreateOffender({super.key});
@@ -166,11 +167,14 @@ class _CreateOffenderState extends State<CreateOffender> {
     final phoneNumber = _phoneNumber.text.trim();
     final email = _email.text.trim();
 
+    showLoadingDialog("Processing...");
+
     try {
       final offender = await _offenderService.getOffender(idNumber);
 
       if (offender != null && offender.data != null) {
         _fetchedOffender = offender.data;
+        Navigator.of(Get.context!).pop();
         Get.toNamed(
           Routes.addCrime,
           arguments: {'offenderId': _fetchedOffender ?? {}
@@ -180,16 +184,22 @@ class _CreateOffenderState extends State<CreateOffender> {
         final newOffender =
         await _offenderService.addOffender(name, idNumber, licenseNumber,phoneNumber,email);
 
+        Navigator.of(Get.context!).pop();
+
         if (newOffender != null && newOffender.data != null) {
+          Get.snackbar('Success', 'Offender created successfully');
           Get.toNamed(
             Routes.addCrime,
             arguments: {'offenderId': newOffender.data?? {}},
           );
         } else {
+          showMessageDialog('Failed to create offender');
           print('Failed to create a new offender.');
         }
       }
     } catch (e) {
+      Get.back();
+      showMessageDialog('Error processing offender: ${e.toString()}');
       print('Error fetching or adding offender: $e');
     }
   }

@@ -10,13 +10,16 @@ void showLoadingDialog(String message) {
     barrierDismissible: false,
     builder: (BuildContext context) {
       return AlertDialog(
+        backgroundColor:Colors.blue.shade900,
         content: Row(
           children: [
              CircularProgressIndicator(
-              color: Colors.blue.shade900,
+              color: Colors.white,
             ),
             const SizedBox(width: 15),
-            Text(message),
+            Text(message, style: TextStyle(
+              color: Colors.white
+            ),),
           ],
         ),
       );
@@ -29,6 +32,7 @@ void showProcessingDialog(String message) {
     barrierDismissible: false,
     builder: (BuildContext context) {
       return AlertDialog(
+        backgroundColor: Colors.blue.shade900,
         content: Row(
           children: [
             const SizedBox(width: 15),
@@ -49,14 +53,14 @@ void showMessageDialog(String message) {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20), // Rounded corners
         ),
-        backgroundColor: Colors.white, // Background color
+        backgroundColor: Colors.blue.shade900, // Background color
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Icon(
               Icons.error, // Information icon
               size: 25,
-              color: Colors.blue.shade900, // Icon color
+              color: Colors.white, // Icon color
             ),
             const SizedBox(height: 20),
             Text(

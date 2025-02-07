@@ -221,6 +221,12 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
+  Future<void> saveLoginState() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('isLoggedIn', true);
+    print("------------------saving data");
+  }
+
   void _login() async {
     if (formKey.currentState!.validate()) {
       formKey.currentState!.save();
@@ -232,10 +238,10 @@ class _LoginPageState extends State<LoginPage> {
             width: 240,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8),
-              color: Colors.white,
+              color: Colors.blue[900],
             ),
             child:  SpinKitFadingCircle(
-              color: Colors.blue[900],
+              color: Colors.white,
               size: 23,
             ),
           ),
@@ -264,7 +270,8 @@ class _LoginPageState extends State<LoginPage> {
 
           AuthResponse _newUser = AuthResponse.fromJson(response.data);
           _auth.saveUserData(_newUser);
-          Get.toNamed(Routes.dashboard);
+          saveLoginState();
+          Get.offNamed(Routes.dashboard);
         } else {
           showMessageDialog(response.data["message"]);
         }

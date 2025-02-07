@@ -83,18 +83,19 @@ class VehicleService{
       );
 
       if (response.statusCode == 200 && response.data != null) {
-        Navigator.of(Get.context!).pop(); // Close loading dialog
-        Get.snackbar(
-          'Success',
-          'Vehicle Added',
-          snackPosition: SnackPosition.TOP,
-        );
-        Get.offAllNamed(Routes.dashboard);
+        // Navigator.of(Get.context!).pop(); // Close loading dialog
+        // Get.snackbar(
+        //   'Success',
+        //   'Vehicle Added',
+        //   colorText: Get.theme.primaryColor,
+        //   snackPosition: SnackPosition.TOP,
+        // );
+        // Get.offAllNamed(Routes.dashboard);
         return AddVehicleResponse.fromJson(response.data);
       }
     } on DioException catch (e) {
       Navigator.of(Get.context!).pop();
-      _handleDioError2(e);
+      _handleDioError(e);
     } catch (e) {
       Navigator.of(Get.context!).pop();
       print('Exception occurred while adding vehicles: $e');
@@ -105,25 +106,16 @@ class VehicleService{
 
 
   void _handleDioError(DioException e) {
-    if (e.response?.statusCode == 401  &&
-        e.response?.data['error'] == 'Token Expired') {
+    if (e.response?.statusCode == 401 && e.response?.data['error'] == 'Token Expired') {
+      // Handle token expiration globally
       Get.snackbar(
         'Session Expired',
         'Your session has expired. Please log in again.',
         snackPosition: SnackPosition.TOP,
       );
       Get.offAllNamed(Routes.login);
-    } else if(e.response?.statusCode == 404){
-
-      Get.snackbar(
-        'Error',
-        'No vehicle',
-        snackPosition: SnackPosition.TOP,
-      );
-
-    } else {
-      print('DioError occurred: ${e.message}');
     }
+    // Do not show snackbars for other errors here; let UI layer handle
   }
   void _handleDioError2(DioException e) {
     if (e.response?.statusCode == 401  &&

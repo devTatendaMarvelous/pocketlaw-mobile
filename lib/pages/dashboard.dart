@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pocket_law/pages/crimes_list.dart';
+import 'package:pocket_law/pages/start_page.dart';
 import 'package:pocket_law/routes/routes.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../generated/assets.dart';
 
 class Dashboard extends StatelessWidget {
@@ -82,6 +84,12 @@ class Dashboard extends StatelessWidget {
     );
   }
 
+  Future<void> logout() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.remove('isLoggedIn');
+    Get.offAll(StartPage());
+  }
+
   Widget _buildAppBar() {
     return Container(
       decoration: BoxDecoration(
@@ -103,13 +111,15 @@ class Dashboard extends StatelessWidget {
               ),
             ),
             TextButton(
-              onPressed: () {},
+              onPressed: () {
+               logout();
+              },
               child: Text(
-                "Login",
+                "Logout",
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 16,
-                  fontWeight: FontWeight.w600,
+                  fontWeight: FontWeight.w900,
                 ),
               ),
             ),

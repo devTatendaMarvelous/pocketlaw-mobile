@@ -55,13 +55,29 @@ class OffenderService {
       }
     } on DioException catch (e) {
       Navigator.of(Get.context!).pop();
-      _handleDioError(e);
+      _handleDioError2(e);
     } catch (e) {
       Navigator.of(Get.context!).pop();
       print('Exception occurred while adding offender: $e');
     }
 
     return null;
+  }
+
+  void _handleDioError2(DioException e) {
+    if (e.response?.statusCode == 401 &&
+        e.response?.data['error'] == 'Token Expired' ) {
+      Get.snackbar(
+        'Session Expired',
+        'Your session has expired. Please log in again.',
+        snackPosition: SnackPosition.BOTTOM,
+      );
+      Get.offAllNamed(Routes.login);
+    } else {
+      showMessageDialog("${e.response?.data["message"]}");
+      print('DioError occurred: ${e.response?.data["data"]}');
+    }
+
   }
 
   void _handleDioError(DioException e) {
@@ -74,8 +90,8 @@ class OffenderService {
       );
       Get.offAllNamed(Routes.login);
     } else {
-      // showMessageDialog("${e.message}");
-      print('DioError occurred: ${e.message}');
+      showMessageDialog("${e.response?.data["message"]}");
+      print('DioError occurred: ${e.response?.data["data"]}');
     }
 
   }

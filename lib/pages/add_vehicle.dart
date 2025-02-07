@@ -103,12 +103,13 @@ class AddVehiclePage extends StatelessWidget {
                           showDialog(
                             context: context,
                             builder: (context) => AlertDialog(
+                              backgroundColor: Colors.blue.shade900,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20), // Rounded corners
                               ),
                               title: const Text(
                                 'Confirm Vehicle Details',
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                                style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
                               ),
                               content: SizedBox(
                                 width: MediaQuery.sizeOf(context).width*0.9,
@@ -132,7 +133,9 @@ class AddVehiclePage extends StatelessWidget {
                                     Navigator.of(context).pop(); // Close dialog
                                   },
                                   child: const Text(
-                                    'Cancel',
+                                    'Cancel',style: TextStyle(
+                                    color: Colors.white
+                                  ),
                                   ),
                                 ),
                                 CustomButton(
