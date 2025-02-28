@@ -1,17 +1,16 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:pocket_law/model/Vehicle.dart';
-import 'dart:io';
-
-import 'package:pocket_law/widgets/custom_buttom.dart';
 import 'package:pocket_law/widgets/helper.dart';
 
 import '../generated/assets.dart';
+import '../routes/routes.dart';
 import '../services/vehicle_service.dart';
 
 class NumberPlateScanner extends StatefulWidget {
@@ -360,11 +359,13 @@ class VehicleDetailScreen extends StatelessWidget {
                         itemCount: vehicle.data?.crimes?.length,
                         itemBuilder: (BuildContext context, int index) {
                           return _buildCrimeRow(
-                              CupertinoIcons.padlock,
-                              "${vehicle.data!.crimes![index].crime!.name}",
-                              vehicle.data?.crimes![index].status,
-                              "${vehicle.data!.crimes![index].offender!.name}"
-                          );
+                              vehicle.data?.crimes![index].status == "PENDING",
+                                CupertinoIcons.padlock,
+                                "${vehicle.data!.crimes![index].crime!.name}",
+                                vehicle.data?.crimes![index].status,
+                                "${vehicle.data!.crimes![index].offender!.name}",
+                                vehicle.data!.crimes![index].id
+                            );
                         },),
                     ),
                   ],
@@ -411,57 +412,71 @@ class VehicleDetailScreen extends StatelessWidget {
       ),
     );
   }
-  Widget _buildCrimeRow(IconData icon, String label, String? value,String? offender) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8),
-      child: Row(
-        children: [
-          Icon(icon, color: Get.theme.primaryColor, size: 28),
-          const SizedBox(width: 15),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+  Widget _buildCrimeRow(bool status, IconData icon, String label, String? value,String? offender, int? id) {
+    return GestureDetector(
+      onTap: (){
+        status ? Get.toNamed(
+          Routes.payment,
+          arguments: {'crimeId': id
+          },
+
+        )
+        : showMessageDialog("Crime already paid");
+      },
+      child: Card(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8),
+          child: Row(
             children: [
-              Text(
-                label,
-                style: GoogleFonts.roboto(
-                  fontSize: 14,
-                  color: Colors.grey,
-                  fontWeight: FontWeight.w500,
-                ),
+              Icon(icon, color: Get.theme.primaryColor, size: 28),
+              const SizedBox(width: 15),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    label,
+                    style: GoogleFonts.roboto(
+                      fontSize: 14,
+                      color: Colors.grey,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    value ?? 'N/A',
+                    style: GoogleFonts.roboto(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: !status ? Colors.green.shade600 : Colors.red
+                    ),
+                  ),
+                ],
               ),
-              const SizedBox(height: 4),
-              Text(
-                value ?? 'N/A',
-                style: GoogleFonts.roboto(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
+              const SizedBox(width: 30),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Offender",
+                    style: GoogleFonts.roboto(
+                      fontSize: 14,
+                      color: Colors.grey,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    offender ?? 'N/A',
+                    style: GoogleFonts.roboto(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
-          const SizedBox(width: 30),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Offender",
-                style: GoogleFonts.roboto(
-                  fontSize: 14,
-                  color: Colors.grey,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              const SizedBox(height: 4),
-              Text(
-                offender ?? 'N/A',
-                style: GoogleFonts.roboto(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ],
-          ),
-        ],
+        ),
       ),
     );
   }

@@ -32,26 +32,26 @@ class AuthModel extends Model {
   //   ),
   // );
 
-  late AuthResponse _user;
+  AuthResponse? _user;
 
-  AuthResponse get user => _user;
+  AuthResponse? get user => _user;
 
   List<Map<String, dynamic>> get crimesList {
-    return _user.crimes?.map((crime) => {
+    return _user?.crimes?.map((crime) => {
       'id': crime.id,
       'name': crime.name,
     }).toList() ?? [];
   }
 
   List<Map<String, dynamic>> get paymentMethods {
-    return _user.paymentMethods?.map((payment) => {
+    return _user?.paymentMethods?.map((payment) => {
       'id': payment.id,
       'name': payment.name,
     }).toList() ?? [];
   }
 
   List<Map<String, dynamic>> get currencies {
-    return _user.currencies?.map((currency) =>{
+    return _user?.currencies?.map((currency) =>{
       'id': currency.id,
       'name': currency.name
     }).toList() ?? [];
@@ -89,84 +89,42 @@ class AuthModel extends Model {
     });
   }
 
-  // void loadSettings() async {
-  //   var _prefs = await SharedPreferences.getInstance();
-  //   try {
-  //     _useBio = _prefs.getBool("use_bio") ?? false;
-  //   } catch (e) {
-  //     print(e);
-  //     _useBio = false;
-  //   }
-  //   try {
-  //     _rememberMe = _prefs.getBool("remember_me") ?? false;
-  //   } catch (e) {
-  //     print(e);
-  //     _rememberMe = false;
-  //   }
-  //   try {
-  //     _stayLoggedIn = _prefs.getBool("stay_logged_in") ?? false;
-  //   } catch (e) {
-  //     print(e);
-  //     _stayLoggedIn = false;
-  //   }
-  //
-  //   if (_stayLoggedIn) {
-  //     late AuthResponse _savedUser;
-  //     try {
-  //       String? _saved = _prefs.getString("vina_user_data");
-  //       print("Saved: $_saved");
-  //       _savedUser = AuthResponse.fromJson(json.decode(_saved!));
-  //     } catch (e) {
-  //       print("User Not Found: $e");
-  //     }
-  //     if (_useBio) {
-  //       if (await biometrics()) {
-  //         _user = _savedUser;
-  //       }
-  //     } else {
-  //       _user = _savedUser;
-  //     }
-  //   }
-  //   notifyListeners();
-  // }
+  Future<void> saveLoginState() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('isLoggedIn', true);
+    print("------------------saving data");
+  }
 
-  // Future<bool> biometrics() async {
-  //   final LocalAuthentication auth = LocalAuthentication();
-  //   bool authenticated = false;
-  //   try {
-  //     authenticated = await auth.authenticate(
-  //       localizedReason: 'Scan to authenticate',
-  //       options: const AuthenticationOptions(
-  //         useErrorDialogs: true,
-  //         stickyAuth: true,
-  //       ),
-  //     );
-  //   } catch (e) {
-  //     print(e);
-  //   }
-  //   return authenticated;
-  // }
-
-  Future<void> saveUserData(AuthResponse user) async {
-    if (user != null) {
-      _user = user;
-      notifyListeners();
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      var _save = json.encode(_user.toJson());
-      print("Data: $_save");
-      prefs.setString("user_data", _save);
+  Future<void> saveUser() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (_user != null) {
+      String userJson = json.encode(_user!.toJson());
+      await prefs.setString('user_data', userJson);
     }
   }
 
-  Future<void> logout() async {
-    var _prefs = await SharedPreferences.getInstance();
-    _useBio = _prefs.getBool("use_bio")!;
-    _rememberMe = _prefs.getBool("remember_me")!;
-    print("Logout");
-    notifyListeners();
-    SharedPreferences.getInstance().then((prefs) {
-      //prefs.setString("user_data", null);
-    });
-    return;
+  Future<void> loadUser() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? userJson = prefs.getString('user_data');
+    if (userJson != null) {
+      _user = AuthResponse.fromJson(json.decode(userJson));
+      notifyListeners(); // Notify listeners to rebuild dependent widgets
+    }
   }
+
+  void setUser(AuthResponse user) {
+    _user = user;
+    notifyListeners(); // Update UI components relying on this data
+    saveUser(); // Persist the changes immediately
+  }
+
+  // Call this when logging out
+  Future<void> clearUser() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.remove('user_data');
+    _user = null;
+    notifyListeners();
+  }
+
+
 }

@@ -26,7 +26,6 @@ class _LoginPageState extends State<LoginPage> {
   bool mobileReadonly = false;
   late TextEditingController _controllerMobile;
   late String _mobile, _pin;
-  late AuthModel _auth;
 
   @override
   void initState() {
@@ -36,7 +35,6 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    _auth = ScopedModel.of<AuthModel>(context, rebuildOnChange: true);
     return Scaffold(
       resizeToAvoidBottomInset: true,
       backgroundColor: Colors.white,
@@ -269,7 +267,9 @@ class _LoginPageState extends State<LoginPage> {
               .then((prefs) => prefs.setString('jwt_token', token));
 
           AuthResponse _newUser = AuthResponse.fromJson(response.data);
-          _auth.saveUserData(_newUser);
+          AuthModel authModel = ScopedModel.of<AuthModel>(context, rebuildOnChange: false);
+          authModel.setUser(_newUser);
+
           saveLoginState();
           Get.offNamed(Routes.dashboard);
         } else {
@@ -291,29 +291,29 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  void _showErrorDialog(String message) {
-    Get.dialog(
-      Center(
-        child: Container(
-          height: 120,
-          width: 240,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8),
-            color: Colors.white,
-          ),
-          child: Center(
-            child: Text(
-              message,
-              style: const TextStyle(
-                color: Colors.black,
-                fontSize: 16,
-                fontWeight: FontWeight.normal,
-              ),
-              textAlign: TextAlign.center,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
+  // void _showErrorDialog(String message) {
+  //   Get.dialog(
+  //     Center(
+  //       child: Container(
+  //         height: 120,
+  //         width: 240,
+  //         decoration: BoxDecoration(
+  //           borderRadius: BorderRadius.circular(8),
+  //           color: Colors.white,
+  //         ),
+  //         child: Center(
+  //           child: Text(
+  //             message,
+  //             style: const TextStyle(
+  //               color: Colors.black,
+  //               fontSize: 16,
+  //               fontWeight: FontWeight.normal,
+  //             ),
+  //             textAlign: TextAlign.center,
+  //           ),
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
 }

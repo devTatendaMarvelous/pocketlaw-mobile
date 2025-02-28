@@ -1,10 +1,11 @@
-import 'dart:convert';
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pocket_law/model/Offender.dart';
 import 'package:pocket_law/services/vehicle_service.dart';
 import 'package:pocket_law/widgets/helper.dart';
+
 import '../constants.dart';
 import '../routes/routes.dart';
 
@@ -58,7 +59,9 @@ class OffenderService {
       _handleDioError2(e);
     } catch (e) {
       Navigator.of(Get.context!).pop();
-      print('Exception occurred while adding offender: $e');
+      if (kDebugMode) {
+        print('Exception occurred while adding offender: $e');
+      }
     }
 
     return null;

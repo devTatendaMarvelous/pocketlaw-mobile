@@ -3,28 +3,31 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:pocket_law/pages/login_page.dart';
 import 'package:pocket_law/pages/start_page.dart';
 import 'package:pocket_law/routes/routes.dart';
 import 'package:pocket_law/ssl.dart';
 import 'package:scoped_model/scoped_model.dart';
+
 import 'auth/authModel.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   HttpOverrides.global = CustomHttpOverrides();
-  runApp( MyApp());
+  AuthModel authModel = AuthModel();
+  await authModel.loadUser();
+  runApp( ScopedModel<AuthModel>(
+    model: authModel,
+      child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
-   MyApp({super.key});
+   const MyApp({super.key});
 
-  final AuthModel _auth =  AuthModel();
+
 
   @override
   Widget build(BuildContext context) {
-    return ScopedModel<AuthModel>(
-      model: _auth,
-      child: GetMaterialApp(
+    return  GetMaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'PocketLaw',
         theme: ThemeData(
@@ -38,8 +41,7 @@ class MyApp extends StatelessWidget {
             builder: (context, child, model) {
               return StartPage();
             }),
-      ),
-    );
+      );
   }
 }
 

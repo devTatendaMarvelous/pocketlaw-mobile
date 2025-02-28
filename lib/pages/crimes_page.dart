@@ -35,7 +35,7 @@ class CrimesPage extends StatelessWidget {
                   }
 
                   final crimes = controller.filteredCrimes;
-                  if (crimes!.isEmpty) {
+                  if (crimes.isEmpty) {
                     return Center(
                       child: Text(
                         controller.searchQuery.isEmpty
@@ -111,7 +111,7 @@ class CrimesPage extends StatelessWidget {
   Widget _buildSearchBar() {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.1),
+        color: Colors.white.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(12),
       ),
       child: TextField(
@@ -121,14 +121,14 @@ class CrimesPage extends StatelessWidget {
         decoration: InputDecoration(
           hintText: 'Search crimes...',
           hintStyle: TextStyle(
-            color: Colors.white.withOpacity(0.7),
+            color: Colors.white.withValues(alpha: 0.7),
             height: 1.0, // Fix text vertical alignment
           ),
           prefixIcon: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Icon(
               Icons.search,
-              color: Colors.white.withOpacity(0.7),
+              color: Colors.white.withValues(alpha: 0.7),
               size: 24,
             ),
           ),
@@ -199,7 +199,7 @@ class CrimesPage extends StatelessWidget {
         borderRadius: BorderRadius.circular(50),
         boxShadow: [
           BoxShadow(
-            color: Colors.blue.withOpacity(0.3),
+            color: Colors.blue.withValues(alpha: 0.3),
             blurRadius: 10,
             offset: const Offset(0, 4),
           )

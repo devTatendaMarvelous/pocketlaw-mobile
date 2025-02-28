@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:pocket_law/model/PaymentResponse.dart';
 import 'package:pocket_law/routes/routes.dart';
@@ -44,17 +45,23 @@ class PaymentService {
       if (response.statusCode == 200) {
         Navigator.of(Get.context!).pop();
         var paymentResponse = PaymentResponse.fromJson(response.data);
-        print(response.statusMessage);
+        if (kDebugMode) {
+          print(response.statusMessage);
+        }
 
-        Get.offAllNamed(
+        Get.offAndToNamed(
           Routes.confirmPayment,
           arguments: paymentResponse,
         );
 
       } else {
         Navigator.of(Get.context!).pop();
-        print(response.statusMessage);
-        print(response.data);
+        if (kDebugMode) {
+          print(response.statusMessage);
+        }
+        if (kDebugMode) {
+          print(response.data);
+        }
       }
     } on DioException catch (e) {
       Navigator.of(Get.context!).pop();
@@ -67,11 +74,15 @@ class PaymentService {
         );
         Get.offAllNamed(Routes.login); // Replace with your login route
       } else {
-        print('DioError occurred: ${e.message}');
+        if (kDebugMode) {
+          print('DioError occurred: ${e.message}');
+        }
       }
     } catch (e) {
       Navigator.of(Get.context!).pop();
-      print('Exception occurred: $e');
+      if (kDebugMode) {
+        print('Exception occurred: $e');
+      }
     }
   }
 }

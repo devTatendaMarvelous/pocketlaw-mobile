@@ -23,9 +23,9 @@ class _CrimesListState extends State<CrimesList> {
       child: ListView.builder(
         physics: BouncingScrollPhysics(),
         shrinkWrap: true,
-        itemCount: _auth.user.crimes?.length,
+        itemCount: _auth.user?.crimes?.length,
         itemBuilder: (BuildContext context, int index) {
-          Crimes? crime = _auth.user.crimes?[index];
+          Crimes? crime = _auth.user?.crimes?[index];
           return Padding(
             padding: const EdgeInsets.all(8.0),
             child: ListTile(

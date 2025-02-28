@@ -2,14 +2,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:pocket_law/pages/crimes_list.dart';
+import 'package:pocket_law/auth/authModel.dart';
 import 'package:pocket_law/pages/start_page.dart';
 import 'package:pocket_law/routes/routes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 import '../generated/assets.dart';
 
 class Dashboard extends StatelessWidget {
-  const Dashboard({super.key});
+   Dashboard({super.key});
+
+  final AuthModel model = AuthModel();
 
   @override
   Widget build(BuildContext context) {
@@ -87,6 +90,7 @@ class Dashboard extends StatelessWidget {
   Future<void> logout() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.remove('isLoggedIn');
+    model.clearUser();
     Get.offAll(StartPage());
   }
 
@@ -113,6 +117,8 @@ class Dashboard extends StatelessWidget {
             TextButton(
               onPressed: () {
                logout();
+
+
               },
               child: Text(
                 "Logout",
@@ -187,7 +193,7 @@ class Dashboard extends StatelessWidget {
             borderRadius: BorderRadius.circular(20),
             boxShadow: [
               BoxShadow(
-                color: colors[0].withOpacity(0.3),
+                color: colors[0].withValues(alpha: 0.3),
                 blurRadius: 10,
                 offset: Offset(0, 4),
               )

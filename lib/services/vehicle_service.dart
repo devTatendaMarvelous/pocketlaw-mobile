@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:pocket_law/constants.dart';
 import 'package:pocket_law/model/AddVehicleResponse.dart';
@@ -51,7 +52,9 @@ class VehicleService{
       _handleDioError(e);
     }catch (e){
       Navigator.of(Get.context!).pop();
-      print('Exception: $e');
+      if (kDebugMode) {
+        print('Exception: $e');
+      }
       return null;
     }
     return null;
@@ -98,7 +101,9 @@ class VehicleService{
       _handleDioError(e);
     } catch (e) {
       Navigator.of(Get.context!).pop();
-      print('Exception occurred while adding vehicles: $e');
+      if (kDebugMode) {
+        print('Exception occurred while adding vehicles: $e');
+      }
     }
 
     return null;
@@ -117,27 +122,7 @@ class VehicleService{
     }
     // Do not show snackbars for other errors here; let UI layer handle
   }
-  void _handleDioError2(DioException e) {
-    if (e.response?.statusCode == 401  &&
-        e.response?.data['error'] == 'Token Expired') {
-      Get.snackbar(
-        'Session Expired',
-        'Your session has expired. Please log in again.',
-        snackPosition: SnackPosition.TOP,
-      );
-      Get.offAllNamed(Routes.login);
-    } else if(e.response?.statusCode == 404){
 
-      Get.snackbar(
-        'Error',
-        e.response!.data.toString(),
-        snackPosition: SnackPosition.TOP,
-      );
-
-    } else {
-      print('DioError occurred: ${e.message}');
-    }
-  }
 
   }
 

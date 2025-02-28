@@ -2,9 +2,7 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:pocket_law/auth/authModel.dart';
-import 'package:pocket_law/model/PaymentResponse.dart';
 import 'package:pocket_law/services/payment_service.dart';
 import 'package:pocket_law/widgets/custom_textfield.dart';
 import 'package:scoped_model/scoped_model.dart';
@@ -29,12 +27,11 @@ class _PaymentState extends State<Payment> {
   bool showPhoneNumberField = false;
   final TextEditingController _amountController = TextEditingController();
   final TextEditingController _phoneNumberController = TextEditingController();
-  PaymentService _paymentService = PaymentService();
+  final PaymentService _paymentService = PaymentService();
 
 
   late AuthModel _auth;
 
-  PaymentResponse? _paymentResponse;
 
   @override
   Widget build(BuildContext context) {
