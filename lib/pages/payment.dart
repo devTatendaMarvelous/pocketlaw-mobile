@@ -172,7 +172,7 @@ class _PaymentState extends State<Payment> {
                     print("currency id :......$selectedCurrencyId");
                     print("crime id :......$crimeId");
                     double? amount = double.tryParse(_amountController.text);
-                    _paymentService.addPayment(crimeId, selectedPaymentMethodId!, amount!, selectedCurrencyId!);
+                    _paymentService.addPayment(crimeId, selectedPaymentMethodId!, amount!, selectedCurrencyId!,_phoneNumberController.text);
                   },
                 ),
               ),

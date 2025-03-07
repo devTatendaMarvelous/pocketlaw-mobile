@@ -17,7 +17,7 @@ class PaymentService {
   final VehicleService service = VehicleService();
 
   Future<void> addPayment(
-      int crimeId, int paymentMethodId, double amount, int currencyId) async {
+      int crimeId, int paymentMethodId, double amount, int currencyId, String mobile) async {
 
     showLoadingDialog("Processing...");
     try {
@@ -28,6 +28,7 @@ class PaymentService {
         "payment_method_id": paymentMethodId,
         "amount": amount,
         "currency_id": currencyId,
+        "mobile": mobile
       });
 
       var response = await _dio.request(
