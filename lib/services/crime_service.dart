@@ -19,7 +19,7 @@ class CrimeServices{
 
   VehicleService service = VehicleService();
 
-  Future<bool> addCrime(int vehicleId,int offenderId, int crimeId, String location) async{
+  Future<bool> addCrime(int vehicleId,int offenderId, int crimeId, String location, String base64signature) async{
 
     showLoadingDialog("Processing...");
 
@@ -32,7 +32,8 @@ class CrimeServices{
         "offender_id": offenderId,
         "crime_id": crimeId,
         "occurrence_time": DateTime.now().toIso8601String(),
-        "location": location
+        "location": location,
+        "signature" : base64signature
       });
 
       var response = await _dio.request(

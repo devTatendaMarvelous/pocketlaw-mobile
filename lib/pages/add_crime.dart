@@ -13,6 +13,10 @@ import '../auth/authModel.dart';
 import '../model/Vehicle.dart';
 import '../services/vehicle_service.dart';
 import 'confirmed_payment.dart';
+import 'package:signature/signature.dart';
+import 'dart:typed_data';
+import 'dart:ui' as ui;
+import 'dart:convert';
 
 class AddCrime extends StatefulWidget {
   const AddCrime({super.key});
@@ -31,6 +35,11 @@ class _AddCrimeState extends State<AddCrime> {
   final VehicleService _vehicleService = VehicleService();
   final CrimeServices _crimeServices = CrimeServices();
   final offenderId = Get.arguments['offenderId'];
+
+  final SignatureController _signatureController = SignatureController(
+    penStrokeWidth: 1.0,
+    penColor: Colors.black,
+  );
 
   late AuthModel _auth;
 
@@ -89,6 +98,7 @@ class _AddCrimeState extends State<AddCrime> {
                       ),
                     ),
                     DropdownButtonFormField2<Map<String, dynamic>>(
+                      isExpanded: true,
                       style: TextStyle(
                         color: Colors.white
                       ),
@@ -208,7 +218,7 @@ class _AddCrimeState extends State<AddCrime> {
             bottom: MediaQuery.of(context).viewInsets.bottom,
           ),
           child: Container(
-            height: MediaQuery.sizeOf(context).height*0.5,
+            height: MediaQuery.sizeOf(context).height*0.75,
             padding: const EdgeInsets.all(16),
             decoration: const BoxDecoration(
               gradient: LinearGradient(
@@ -244,6 +254,40 @@ class _AddCrimeState extends State<AddCrime> {
                 buildDetailRow('Color:', '${vehicleData.color}'),
                 const SizedBox(height: 8),
                 buildDetailRow('Registration Number:', '${vehicleData.registrationNumber}'),
+
+                const SizedBox(height: 10),
+
+                const Text(
+                  'Please sign below:',
+                  style: TextStyle(
+                      fontSize: 16,
+                    color: Colors.white54
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.blue),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  height: 150,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(6),
+                    child: Signature(
+                      controller: _signatureController,
+                      backgroundColor: Colors.white,
+                    ),
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    TextButton(
+                      onPressed: () => _signatureController.clear(),
+                      child: const Text('Clear Signature'),
+                    ),
+                  ],
+                ),
                 const SizedBox(height: 24),
                 Align(
                   alignment: Alignment.center,
@@ -253,13 +297,37 @@ class _AddCrimeState extends State<AddCrime> {
                       fontWeight: FontWeight.w700,
                       fontSize: 16,
                       onPressed: () async {
+
+                        if (_signatureController.isEmpty) {
+                          Get.snackbar(
+                            'Signature Required',
+                            'Please provide a signature before confirming',
+                            backgroundColor: Colors.red,
+                            colorText: Colors.white,
+                          );
+                          return;
+                        }
+
+
+                        final signatureBytes = await _signatureController.toPngBytes();
+                        if (signatureBytes == null) {
+                          throw Exception('Failed to generate signature image');
+                        }
+
+
+                        String base64Signature = base64Encode(signatureBytes);
+
+                        print("------------------------------------------==============$base64Signature===========================");
+
                         Navigator.of(context).pop();
                         var result = await _crimeServices.addCrime(
                           vehicleData.id!,
                           offenderId.id,
                           selectedCrimeId!,
                           _locationController.text,
+                            base64Signature
                         );
+                        _signatureController.clear();
                         _locationController.clear();
                         _regNumberController.clear();
 

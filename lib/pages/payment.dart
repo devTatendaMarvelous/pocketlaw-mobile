@@ -40,6 +40,7 @@ class _PaymentState extends State<Payment> {
     final paymentMethods = _auth.paymentMethods;
     final currencyOptions = _auth.currencies;
     return Scaffold(
+      backgroundColor: Colors.white70,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: Colors.blue.shade900,

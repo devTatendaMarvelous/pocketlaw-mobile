@@ -20,6 +20,10 @@ class StartPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+          onPressed: ()=> Get.toNamed(Routes.chatPage),
+        child: Icon(Icons.message),
+      ),
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(

@@ -192,11 +192,13 @@ class _CreateOffenderState extends State<CreateOffender> {
             arguments: {'offenderId': newOffender.data?? {}},
           );
         } else {
+          Navigator.of(Get.context!).pop();
           showMessageDialog('Failed to create offender');
           print('Failed to create a new offender.');
         }
       }
     } catch (e) {
+      Navigator.of(Get.context!).pop();
       Get.back();
       showMessageDialog('Error processing offender: ${e.toString()}');
       print('Error fetching or adding offender: $e');

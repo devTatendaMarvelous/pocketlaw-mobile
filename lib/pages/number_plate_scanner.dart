@@ -7,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pocket_law/model/Vehicle.dart';
+import 'package:pocket_law/pages/add_vehicle.dart';
 import 'package:pocket_law/widgets/helper.dart';
 
 import '../generated/assets.dart';
@@ -64,31 +65,6 @@ class _NumberPlateScannerState extends State<NumberPlateScanner> {
     }
   }
 
-  // Future<void> fetchVehicleData(String regNumber) async {
-  //   showLoadingDialog("Fetching vehicle data...");
-  //   var vehicle = await _vehicleService.fetchVehicle(regNumber);
-  //   // Get.back();
-  //   Navigator.pop(context);
-  //
-  //   if (vehicle != null) {
-  //     Get.defaultDialog(
-  //       title: "Vehicle Found",
-  //       content: Column(
-  //         children: [
-  //           Text("Make: ${vehicle.data?.make}"),
-  //           Text("Model: ${vehicle.data?.model}"),
-  //           Text("Color: ${vehicle.data?.color}"),
-  //         ],
-  //       ),
-  //     );
-  //   } else {
-  //     Get.snackbar("Error", "No vehicle found", snackPosition: SnackPosition.BOTTOM);
-  //   }
-  // }
-
-  // void showErrorDialog(String message) {
-  //   Get.defaultDialog(title: "Error", middleText: message);
-  // }
 
 
   void showErrorDialog(String message) {
@@ -250,34 +226,62 @@ class _NumberPlateScannerState extends State<NumberPlateScanner> {
     return AnimatedSwitcher(
       duration: const Duration(milliseconds: 300),
       child: scannedText.isNotEmpty
-          ? GestureDetector(
-        onTap: ()=> fetchVehicleData(scannedText),
-            child: Card(
-                    color: Get.theme.primaryColor,
-                    child: Padding(
-            padding: const EdgeInsets.all(15),
-            child: Column(
-              children: [
-                Text(
-                  'Scanned Text',
-                  style: GoogleFonts.roboto(
-                    fontWeight: FontWeight.w500,
-                    color:Colors.black ,
-                  ),
+          ? Column(
+            children: [
+
+              GestureDetector(
+                      onTap: ()=> fetchVehicleData(scannedText),
+                child: Card(
+                        color: Get.theme.primaryColor,
+                        child: Padding(
+                padding: const EdgeInsets.all(15),
+                child: Column(
+                  children: [
+                    Text(
+                      'Scanned Plate',
+                      style: GoogleFonts.roboto(
+                        fontWeight: FontWeight.w500,
+                        color:Colors.black ,
+                      ),
+                    ),
+                    const SizedBox(height: 5),
+                    Text(
+                      scannedText,
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.roboto(
+                        fontSize: 16,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
                 ),
-                const SizedBox(height: 5),
-                Text(
-                  scannedText,
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.roboto(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
-            ),
+                        ),
+                      ),
+              ),
+              GestureDetector(
+                onTap: ()=> Get.toNamed(Routes.addVehicle),
+                child: Card(
+                  color: Get.theme.primaryColor,
+                  child: Padding(
+                    padding: const EdgeInsets.all(15),
+                    child: Column(
+                      children: [
+                        Text(
+                          'Add Vehicle',
+                          style: GoogleFonts.roboto(
+                            fontWeight: FontWeight.w500,
+                            color:Colors.black ,
+                          ),
+                        ),
+                        const SizedBox(height: 5),
+
+                      ],
                     ),
                   ),
+                ),
+              ),
+            ],
           )
           : const SizedBox.shrink(),
     );

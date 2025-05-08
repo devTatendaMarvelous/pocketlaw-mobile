@@ -18,7 +18,8 @@ class _ComplaintPageState extends State<ComplaintPage> {
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _bodyController = TextEditingController();
   File? _selectedFile;
-  bool _isLoading = false; // Track loading state
+  bool _isLoading = false;
+  String? _dropdownValue;
 
   Future<void> _pickFile() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles();
@@ -140,9 +141,75 @@ class _ComplaintPageState extends State<ComplaintPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CustomTextFormField(
-                    controller: _titleController,
-                    labelText: 'Title',
+                  DropdownButtonFormField<String>(
+                    value: _dropdownValue,
+                    decoration: InputDecoration(
+                      labelText: 'Title',
+                      labelStyle: const TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 20.0,
+                        vertical: 15.0,
+                      ),
+                      filled: true,
+                      fillColor: Colors.white.withValues(alpha: 0.1),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(16.0),
+                        borderSide: BorderSide(
+                          color: Colors.blue.shade900,
+                        ),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(16.0),
+                        borderSide: BorderSide.none,
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(16.0),
+                        borderSide: BorderSide(
+                          color: Colors.blue.shade900,
+                          width: 2.0,
+                        ),
+                      ),
+                      errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(16.0),
+                        borderSide: BorderSide(
+                          color: Colors.red.shade600,
+                        ),
+                      ),
+                      focusedErrorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(16.0),
+                        borderSide: BorderSide(
+                          color: Colors.red.shade900,
+                          width: 2.0,
+                        ),
+                      ),
+                      floatingLabelBehavior: FloatingLabelBehavior.auto,
+                    ),
+                    items: const [
+                      DropdownMenuItem(
+                        value: 'corruption',
+                        child: Text('corruption'),
+                      ),
+                      DropdownMenuItem(
+                        value: 'misconduct',
+                        child: Text('misconduct'),
+                      ),
+                      DropdownMenuItem(
+                        value: 'other',
+                        child: Text('other'),
+                      ),
+                    ],
+                    style: TextStyle(color: Colors.white),
+                    dropdownColor: Colors.blue.shade900,
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        _dropdownValue = newValue;
+                        // Update the controller with the new value
+                        _titleController.text = newValue ?? '';
+                      });
+                    },
                   ),
                   SizedBox(height: 16),
                   CustomTextFormField(

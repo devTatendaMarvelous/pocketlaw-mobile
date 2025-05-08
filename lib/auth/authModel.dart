@@ -108,7 +108,7 @@ class AuthModel extends Model {
     String? userJson = prefs.getString('user_data');
     if (userJson != null) {
       _user = AuthResponse.fromJson(json.decode(userJson));
-      notifyListeners(); // Notify listeners to rebuild dependent widgets
+      notifyListeners();
     }
   }
 

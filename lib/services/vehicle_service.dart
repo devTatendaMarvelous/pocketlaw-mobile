@@ -119,8 +119,10 @@ class VehicleService{
         snackPosition: SnackPosition.TOP,
       );
       Get.offAllNamed(Routes.login);
+    }else if(e.response?.statusCode == 404){
+      showMessageDialog("${e.response?.data['message']}");
     }
-    // Do not show snackbars for other errors here; let UI layer handle
+   
   }
 
 

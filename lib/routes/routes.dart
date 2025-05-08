@@ -5,6 +5,7 @@ import 'package:get/get_navigation/src/routes/get_route.dart';
 
 import 'package:pocket_law/pages/add_crime.dart';
 import 'package:pocket_law/pages/add_vehicle.dart';
+import 'package:pocket_law/pages/chat_page.dart';
 import 'package:pocket_law/pages/confirmed_payment.dart';
 import 'package:pocket_law/pages/create_offender.dart';
 import 'package:pocket_law/pages/dashboard.dart';
@@ -26,6 +27,7 @@ class Routes {
   static const String addComplaint = '/add-complaint';
   static const String plateScanner = '/plate-scanner';
   static const String crimes = '/crimes-page';
+  static const String chatPage = '/chat-page';
 }
 
 class AppPages {
@@ -40,5 +42,6 @@ class AppPages {
     GetPage(name: Routes.addComplaint, page: () => ComplaintPage()),
     GetPage(name: Routes.plateScanner, page: () => NumberPlateScanner()),
     GetPage(name: Routes.crimes, page: () => CrimesPage()),
+    GetPage(name: Routes.chatPage, page: () => ChatPage()),
   ];
 }
